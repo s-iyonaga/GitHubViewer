@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "jp.practice.githubviewer"
+    namespace = "com.siyonaga.practice.githubviewer"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "jp.practice.githubviewer"
+        applicationId = "com.siyonaga.practice.githubviewer"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

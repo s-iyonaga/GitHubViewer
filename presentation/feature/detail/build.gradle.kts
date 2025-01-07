@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "jp.practice.detail"
+    namespace = "com.siyonaga.practice.githubviewer.detail"
     compileSdk = 35
 
     defaultConfig {
