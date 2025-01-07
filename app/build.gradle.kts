@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.githubviewer"
+    namespace = "jp.practice.githubviewer"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.githubviewer"
+        applicationId = "jp.practice.githubviewer"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -23,7 +23,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "jp.practice.data"
     compileSdk = 35
 
     defaultConfig {
