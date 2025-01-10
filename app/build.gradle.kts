@@ -61,6 +61,5 @@ dependencies {
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
 }
