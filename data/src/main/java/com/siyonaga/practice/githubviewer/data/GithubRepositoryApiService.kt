@@ -8,7 +8,7 @@ interface GithubRepositoryApiService {
     @GET("/search/repositories")
     suspend fun getAllGithubRepositories(
         @Query("q") word: String = "android",
-        @Query("sort") sort: String = "star",
+        @Query("sort") sort: String = "stars",
         @Query("order") order: String,
         @Query("per_page") perPage: Int,
         @Query("page") nowPage: Int,
