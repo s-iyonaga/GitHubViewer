@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.devtools.ksp)
-    kotlin("plugin.serialization") version "2.1.0"
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -40,13 +40,13 @@ dependencies {
     testImplementation(libs.junit)
 
     ksp(libs.hilt.android.compiler)
-    
+
     implementation(libs.hilt.android)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.paging.runtime)
-    
+
     implementation(project(":domain:model"))
     implementation(project(":domain:repository"))
 }
