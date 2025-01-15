@@ -5,10 +5,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GithubRepositoryApiService {
-    @GET("/search/repositories")
+    @GET("/search/repositories?sort=stars")
     suspend fun getAllGithubRepositories(
-        @Query("q") word: String = "android",
-        @Query("sort") sort: String = "stars",
+        @Query("q") word: String,
         @Query("order") order: String,
         @Query("per_page") perPage: Int,
         @Query("page") nowPage: Int,
