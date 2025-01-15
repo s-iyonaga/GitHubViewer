@@ -39,12 +39,14 @@ dependencies {
 
     testImplementation(libs.junit)
 
-    implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    
+    implementation(libs.hilt.android)
+    implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.okhttp)
     implementation(libs.androidx.paging.runtime)
+    
     implementation(project(":domain:model"))
     implementation(project(":domain:repository"))
 }
