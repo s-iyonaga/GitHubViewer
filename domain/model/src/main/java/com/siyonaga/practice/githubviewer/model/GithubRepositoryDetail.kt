@@ -1,5 +1,5 @@
 package com.siyonaga.practice.githubviewer.model
 
 data class GithubRepositoryDetail(
-    val content: String,
+    val readmeText: String,
 )
