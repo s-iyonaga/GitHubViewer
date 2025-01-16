@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.devtools.ksp)
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -37,15 +37,15 @@ android {
 
 dependencies {
 
-    testImplementation(libs.junit)
-
     ksp(libs.hilt.android.compiler)
 
-    implementation(libs.hilt.android)
+    testImplementation(libs.junit)
+
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.paging.runtime)
+    implementation(libs.hilt.android)
 
     implementation(project(":domain:model"))
     implementation(project(":domain:repository"))
