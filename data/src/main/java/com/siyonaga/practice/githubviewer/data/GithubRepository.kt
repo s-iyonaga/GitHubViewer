@@ -5,11 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class GithubRepository(
-    val name: String,
+    @SerialName("name") val name: String,
     // ownerName/repoName の形式の値
-    @SerialName("full_name")
-    val fullName: String,
-    val owner: Owner,
-    @SerialName("stargazers_count")
-    val stargazersCount: Int,
+    @SerialName("full_name") val fullName: String,
+    @SerialName("owner") val owner: Owner,
+    @SerialName("stargazers_count") val stargazersCount: Int,
 )
