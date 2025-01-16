@@ -11,11 +11,11 @@ interface GithubRepositoryApiService {
         @Query("order") order: String,
         @Query("per_page") perPage: Int,
         @Query("page") nowPage: Int,
-    ): GithubRepositories
+    ): Any // TODO: あとで
 
     @GET("/repos/{owner}/{repo}/readme")
     suspend fun getCurrentGithubRepository(
         @Path("owner") ownerName: String,
         @Path("repo") repoName: String,
-    ): GithubRepositoryDetail
+    ): Any // TODO: あとで
 }

@@ -36,17 +36,15 @@ android {
 }
 
 dependencies {
-
-    ksp(libs.hilt.android.compiler)
-
-    testImplementation(libs.junit)
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
 
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
-    implementation(project(":domain:model"))
-    implementation(project(":domain:repository"))
+    testImplementation(libs.junit)
 }

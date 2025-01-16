@@ -36,13 +36,8 @@ android {
 }
 
 dependencies {
-
-    ksp(libs.hilt.android.compiler)
-
-    testImplementation(libs.junit)
-
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -50,7 +45,10 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
-    implementation(project(":domain:model"))
-    implementation(project(":domain:repository"))
+    testImplementation(libs.junit)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
