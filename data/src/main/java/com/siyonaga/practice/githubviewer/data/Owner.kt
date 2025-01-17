@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class Owner(
     @SerialName("login") val login: String,
-    @SerialName("avatarUrl") val avatarUrl: String,
+    @SerialName("avatar_url") val avatarUrl: String,
 )
