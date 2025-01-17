@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface GithubRepositoryApiService {
+internal interface GithubRepositoryApiService {
     @GET("/search/repositories?sort=stars")
     suspend fun getAllGithubRepositories(
         @Query("q") word: String,
