@@ -1,12 +1,13 @@
 package com.siyonaga.practice.githubviewer.data
 
+import com.siyonaga.practice.githubviewer.model.GithubRepository
+import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import javax.inject.Inject
 
-class GithubRepositoryRepositoryImpl @Inject constructor(
+internal class GithubRepositoryRepositoryImpl @Inject constructor(
     private val githubRepositoryApiService: GithubRepositoryApiService,
 ) : GithubRepositoryRepository {
-
     override suspend fun getAllGithubRepositories(
         word: String,
         order: String,
@@ -18,8 +19,7 @@ class GithubRepositoryRepositoryImpl @Inject constructor(
             order = order,
             perPage = perPage,
             nowPage = nowPage,
-        )
-        // returnType: GithubRepositories
+        ).items as List<GithubRepository> // TODO: 正しい実装（変換）を行えるようにする
     }
 
     override suspend fun getCurrentGithubRepository(
@@ -29,6 +29,6 @@ class GithubRepositoryRepositoryImpl @Inject constructor(
         return githubRepositoryApiService.getCurrentGithubRepository(
             ownerName = ownerName,
             repoName = repoName,
-        )
+        ) as GithubRepositoryDetail // TODO: 正しい実装（変換）を行えるようにする
     }
 }
