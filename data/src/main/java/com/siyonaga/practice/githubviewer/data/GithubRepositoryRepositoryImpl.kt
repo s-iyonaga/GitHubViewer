@@ -2,6 +2,7 @@ package com.siyonaga.practice.githubviewer.data
 
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
+import com.siyonaga.practice.githubviewer.model.Owner
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import javax.inject.Inject
 
@@ -14,21 +15,32 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
         perPage: Int,
         nowPage: Int,
     ): List<GithubRepository> {
-        return githubRepositoryApiService.getAllGithubRepositories(
+        val apiService = githubRepositoryApiService.getAllGithubRepositories(
             word = word,
             order = order,
             perPage = perPage,
             nowPage = nowPage,
-        ).items as List<GithubRepository> // TODO: 正しい実装（変換）を行えるようにする
+        ).items
+
+        return apiService.map {
+            GithubRepository(
+                name = it.name,
+                repositoryPath = it.fullName,
+                owner = Owner(it.owner.login, it.owner.avatarUrl),
+                stargazersCount = it.stargazersCount,
+            )
+        }
     }
 
     override suspend fun getCurrentGithubRepository(
         ownerName: String,
         repoName: String,
     ): GithubRepositoryDetail {
-        return githubRepositoryApiService.getCurrentGithubRepository(
+        val apiService = githubRepositoryApiService.getCurrentGithubRepository(
             ownerName = ownerName,
             repoName = repoName,
-        ) as GithubRepositoryDetail // TODO: 正しい実装（変換）を行えるようにする
+        )
+
+        return GithubRepositoryDetail(readmeText = apiService.readmeText)
     }
 }
