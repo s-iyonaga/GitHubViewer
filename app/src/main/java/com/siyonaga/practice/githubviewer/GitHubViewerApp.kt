@@ -6,6 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -41,7 +42,7 @@ fun GitHubViewerApp(
         ) {
             composable(route = "home") {
                 // todo: ホーム画面のコンテンツ
-                HomeScreen(viewModel = viewModel())
+                HomeScreen(viewModel = hiltViewModel())
             }
             composable(
                 route = "detail/{repoName}",
