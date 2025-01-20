@@ -15,14 +15,14 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
         perPage: Int,
         nowPage: Int,
     ): List<GithubRepository> {
-        val apiService = githubRepositoryApiService.getAllGithubRepositories(
+        val githubRepositories = githubRepositoryApiService.getAllGithubRepositories(
             word = word,
             order = order,
             perPage = perPage,
             nowPage = nowPage,
         ).items
 
-        return apiService.map {
+        return githubRepositories.map {
             GithubRepository(
                 name = it.name,
                 repositoryPath = it.fullName,
@@ -36,11 +36,11 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
         ownerName: String,
         repoName: String,
     ): GithubRepositoryDetail {
-        val apiService = githubRepositoryApiService.getCurrentGithubRepository(
+        val githubRepositoryDetail = githubRepositoryApiService.getCurrentGithubRepository(
             ownerName = ownerName,
             repoName = repoName,
         )
 
-        return GithubRepositoryDetail(readmeText = apiService.readmeText)
+        return GithubRepositoryDetail(readmeText = githubRepositoryDetail.readmeText)
     }
 }
