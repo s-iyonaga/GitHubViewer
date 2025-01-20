@@ -44,6 +44,9 @@ android {
 dependencies {
     implementation(project(":presentation:feature:detail"))
     implementation(project(":presentation:feature:home"))
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
+    implementation(project(":data"))
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
