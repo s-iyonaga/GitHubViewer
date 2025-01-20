@@ -1,5 +1,6 @@
-package com.siyonaga.practice.githubviewer.data
+package com.siyonaga.practice.githubviewer.data.di
 
+import com.siyonaga.practice.githubviewer.data.GithubRepositoryApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object GithubRepositoryApiServiceModule {
+internal object DataModule {
     @Provides
     @Singleton
     fun provideGithubRepositoryApiService(): GithubRepositoryApiService {
