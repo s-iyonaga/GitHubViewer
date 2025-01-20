@@ -39,9 +39,10 @@ dependencies {
     implementation(project(":domain:model"))
     implementation(project(":domain:repository"))
 
-    implementation(libs.okhttp)
-    implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.okhttp)
     implementation(libs.androidx.paging.runtime)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
