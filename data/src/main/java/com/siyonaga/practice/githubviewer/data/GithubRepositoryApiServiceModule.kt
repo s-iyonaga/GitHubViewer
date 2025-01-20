@@ -15,27 +15,14 @@ import javax.inject.Singleton
 internal object GithubRepositoryApiServiceModule {
     @Provides
     @Singleton
-    fun provideRetrofitJson(): Json {
-        return Json { ignoreUnknownKeys = true }
-    }
+    fun provideGithubRepositoryApiService(): GithubRepositoryApiService {
+        val retrofitJson = Json { ignoreUnknownKeys = true }
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(
-        retrofitJson: Json,
-    ): Retrofit {
         return Retrofit
             .Builder()
             .addConverterFactory(retrofitJson.asConverterFactory("application/json".toMediaType()))
             .baseUrl("https://api.github.com")
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGithubRepositoryApiService(
-        retrofit: Retrofit,
-    ): GithubRepositoryApiService {
-        return retrofit.create(GithubRepositoryApiService::class.java)
+            .create(GithubRepositoryApiService::class.java)
     }
 }
