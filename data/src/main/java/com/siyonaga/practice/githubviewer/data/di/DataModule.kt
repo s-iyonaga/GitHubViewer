@@ -17,7 +17,10 @@ internal object DataModule {
     @Provides
     @Singleton
     fun provideGithubRepositoryApiService(): GithubRepositoryApiService {
-        val retrofitJson = Json { ignoreUnknownKeys = true }
+        val retrofitJson = Json {
+            ignoreUnknownKeys = true
+            explicitNulls = false
+        }
 
         return Retrofit
             .Builder()
