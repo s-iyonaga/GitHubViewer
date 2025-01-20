@@ -1,6 +1,8 @@
 package com.siyonaga.practice.githubviewer.data.di
 
 import com.siyonaga.practice.githubviewer.data.GithubRepositoryApiService
+import com.siyonaga.practice.githubviewer.data.GithubRepositoryRepositoryImpl
+import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +30,13 @@ internal object DataModule {
             .baseUrl("https://api.github.com")
             .build()
             .create(GithubRepositoryApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGithubRepositoryRepository(
+        githubRepositoryApiService: GithubRepositoryApiService,
+    ): GithubRepositoryRepository {
+        return GithubRepositoryRepositoryImpl(githubRepositoryApiService)
     }
 }
