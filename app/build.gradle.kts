@@ -44,6 +44,9 @@ android {
 dependencies {
     implementation(project(":presentation:feature:detail"))
     implementation(project(":presentation:feature:home"))
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
+    implementation(project(":data"))
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -58,6 +61,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
 
     debugImplementation(libs.androidx.ui.tooling)

@@ -1,6 +1,9 @@
 package com.siyonaga.practice.githubviewer.data.di
 
 import com.siyonaga.practice.githubviewer.data.GithubRepositoryApiService
+import com.siyonaga.practice.githubviewer.data.GithubRepositoryRepositoryImpl
+import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,20 +16,28 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object DataModule {
-    @Provides
-    @Singleton
-    fun provideGithubRepositoryApiService(): GithubRepositoryApiService {
-        val retrofitJson = Json {
-            ignoreUnknownKeys = true
-            explicitNulls = false
-        }
+internal interface DataModule {
+    companion object {
+        @Provides
+        @Singleton
+        fun provideGithubRepositoryApiService(): GithubRepositoryApiService {
+            val retrofitJson = Json {
+                ignoreUnknownKeys = true
+                explicitNulls = false
+            }
 
-        return Retrofit
-            .Builder()
-            .addConverterFactory(retrofitJson.asConverterFactory("application/json".toMediaType()))
-            .baseUrl("https://api.github.com")
-            .build()
-            .create(GithubRepositoryApiService::class.java)
+            return Retrofit
+                .Builder()
+                .addConverterFactory(retrofitJson.asConverterFactory("application/json".toMediaType()))
+                .baseUrl("https://api.github.com")
+                .build()
+                .create(GithubRepositoryApiService::class.java)
+        }
     }
+
+    @Singleton
+    @Binds
+    fun bindGithubRepositoryRepository(
+        impl: GithubRepositoryRepositoryImpl,
+    ): GithubRepositoryRepository
 }
