@@ -10,23 +10,27 @@ class GithubRepositoriesPagingSource @Inject constructor(
     private val githubRepositoryRepository: GithubRepositoryRepository,
 ) : PagingSource<Int, GithubRepository>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
-        try {
-            val nowPage = params.key ?: 1
-            val response = githubRepositoryRepository.getAllGithubRepositories(
+        val nowPage = params.key ?: 1
+
+        return runCatching {
+            githubRepositoryRepository.getAllGithubRepositories(
                 word = "android",
                 order = "desc", // TODO: "asc"も指定できるように...
                 perPage = 30,
                 nowPage = nowPage,
             )
-
-            return LoadResult.Page(
-                data = response,
-                prevKey = if (nowPage == 1) null else nowPage.minus(1),
-                nextKey = if (response.isEmpty()) null else nowPage.plus(1),
-            )
-        } catch (e: Exception) {
-            return LoadResult.Error(e)
-        }
+        }.fold(
+            onSuccess = {
+                LoadResult.Page(
+                    data = it,
+                    prevKey = if (nowPage == 1) null else nowPage - 1,
+                    nextKey = if (it.isEmpty()) null else nowPage + 1,
+                )
+            },
+            onFailure = {
+                LoadResult.Error(it)
+            },
+        )
     }
 
     override fun getRefreshKey(state: PagingState<Int, GithubRepository>): Int? {
