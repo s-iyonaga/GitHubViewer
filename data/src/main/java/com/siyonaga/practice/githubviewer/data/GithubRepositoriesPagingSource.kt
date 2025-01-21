@@ -18,7 +18,7 @@ class GithubRepositoriesPagingSource @Inject constructor(
         return runCatching {
             githubRepositoryRepository.getAllGithubRepositories(
                 word = word,
-                order = order, // TODO: "asc"も指定できるように...
+                order = order,
                 perPage = perPage,
                 nowPage = nowPage,
             )
