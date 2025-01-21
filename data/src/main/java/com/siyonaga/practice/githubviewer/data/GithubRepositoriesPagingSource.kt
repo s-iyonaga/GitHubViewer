@@ -8,15 +8,18 @@ import javax.inject.Inject
 
 class GithubRepositoriesPagingSource @Inject constructor(
     private val githubRepositoryRepository: GithubRepositoryRepository,
+    private val word: String,
+    private val order: String,
+    private val perPage: Int = 30,
 ) : PagingSource<Int, GithubRepository>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
         val nowPage = params.key ?: 1
 
         return runCatching {
             githubRepositoryRepository.getAllGithubRepositories(
-                word = "android",
-                order = "desc", // TODO: "asc"も指定できるように...
-                perPage = 30,
+                word = word,
+                order = order, // TODO: "asc"も指定できるように...
+                perPage = perPage,
                 nowPage = nowPage,
             )
         }.fold(
