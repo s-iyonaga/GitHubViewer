@@ -38,6 +38,6 @@ internal interface DataModule {
     @Singleton
     @Binds
     fun bindGithubRepositoryRepository(
-        githubRepositoryRepositoryImpl: GithubRepositoryRepositoryImpl,
+        impl: GithubRepositoryRepositoryImpl,
     ): GithubRepositoryRepository
 }
