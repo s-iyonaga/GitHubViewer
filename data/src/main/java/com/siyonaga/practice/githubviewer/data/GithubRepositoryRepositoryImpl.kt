@@ -1,9 +1,12 @@
 package com.siyonaga.practice.githubviewer.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
-import com.siyonaga.practice.githubviewer.model.Owner
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 internal class GithubRepositoryRepositoryImpl @Inject constructor(
@@ -12,24 +15,18 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
     override suspend fun getAllGithubRepositories(
         word: String,
         order: String,
-        perPage: Int,
-        nowPage: Int,
-    ): List<GithubRepository> {
-        val githubRepositories = githubRepositoryApiService.getAllGithubRepositories(
-            word = word,
-            order = order,
-            perPage = perPage,
-            nowPage = nowPage,
-        ).items
-
-        return githubRepositories.map {
-            GithubRepository(
-                name = it.name,
-                repositoryPath = it.fullName,
-                owner = Owner(it.owner.login, it.owner.avatarUrl),
-                stargazersCount = it.stargazersCount,
+    ): Flow<PagingData<GithubRepository>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 30,
+            ),
+        ) {
+            GithubRepositoriesPagingSource(
+                githubRepositoryApiService,
+                word,
+                order,
             )
-        }
+        }.flow
     }
 
     override suspend fun getCurrentGithubRepository(
