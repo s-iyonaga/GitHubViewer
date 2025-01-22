@@ -1,6 +1,7 @@
 package com.siyonaga.practice.githubviewer.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,8 +12,14 @@ fun GithubRepositoryListItem(
     modifier: Modifier = Modifier,
     githubRepository: GithubRepository,
 ) {
-    Column(modifier = modifier) {
-        Text(text = githubRepository.repositoryPath)
-        Text(text = githubRepository.stargazersCount.toString())
+    Row(modifier = modifier) {
+        // TODO: AsyncImage()
+        Column {
+            Text(text = githubRepository.name)
+            Row {
+                // TODO: Icon()
+                Text(text = githubRepository.stargazersCount.toString())
+            }
+        }
     }
 }
