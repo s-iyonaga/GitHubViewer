@@ -3,25 +3,32 @@ package com.siyonaga.practice.githubviewer.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.siyonaga.practice.githubviewer.model.GithubRepository
-import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
-import javax.inject.Inject
+import com.siyonaga.practice.githubviewer.model.Owner
 
-class GithubRepositoriesPagingSource @Inject constructor(
-    private val githubRepositoryRepository: GithubRepositoryRepository,
+internal class GithubRepositoriesPagingSource(
+    private val githubRepositoryApiService: GithubRepositoryApiService,
     private val word: String,
     private val order: String,
-    private val perPage: Int = 30,
 ) : PagingSource<Int, GithubRepository>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
+        val perPage = params.loadSize
         val nowPage = params.key ?: 1
+        val githubRepositories = githubRepositoryApiService.getAllGithubRepositories(
+            word = word,
+            order = order,
+            perPage = perPage,
+            nowPage = nowPage,
+        ).items
 
         return runCatching {
-            githubRepositoryRepository.getAllGithubRepositories(
-                word = word,
-                order = order,
-                perPage = perPage,
-                nowPage = nowPage,
-            )
+            githubRepositories.map {
+                GithubRepository(
+                    name = it.name,
+                    repositoryPath = it.fullName,
+                    owner = Owner(it.owner.login, it.owner.avatarUrl),
+                    stargazersCount = it.stargazersCount,
+                )
+            }
         }.fold(
             onSuccess = {
                 LoadResult.Page(
