@@ -1,15 +1,15 @@
 package com.siyonaga.practice.githubviewer.repository
 
+import androidx.paging.PagingData
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
+import kotlinx.coroutines.flow.Flow
 
 interface GithubRepositoryRepository {
     suspend fun getAllGithubRepositories(
         word: String,
         order: String,
-        perPage: Int,
-        nowPage: Int,
-    ): List<GithubRepository>
+    ): Flow<PagingData<GithubRepository>>
 
     suspend fun getCurrentGithubRepository(
         ownerName: String,
