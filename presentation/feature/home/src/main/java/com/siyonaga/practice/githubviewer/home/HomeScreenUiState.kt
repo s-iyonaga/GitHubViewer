@@ -8,6 +8,6 @@ sealed interface HomeScreenUiState {
     data object Loading : HomeScreenUiState
     data class Success(
         val order: String,
-        val githubRepositoriesPagingDataFlow: Flow<PagingData<GithubRepository>>?,
+        val githubRepositoriesPagingData: Flow<PagingData<GithubRepository>>?,
     ) : HomeScreenUiState
 }

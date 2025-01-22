@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
     ) { order, pagingData ->
         HomeScreenUiState.Success(
             order = order,
-            githubRepositoriesPagingDataFlow = pagingData,
+            githubRepositoriesPagingData = pagingData,
         )
     }.stateIn(
         scope = viewModelScope,
