@@ -41,11 +41,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun changeOrder() {
-        if (order.value == "desc") {
-            order.value = "asc"
-        } else if (order.value == "asc") {
-            order.value = "desc"
-        }
+        order.value = if (order.value == "desc") "asc" else "desc"
     }
 
     fun getGithubRepositoriesPagingData(word: String) {
