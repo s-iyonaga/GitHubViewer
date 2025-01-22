@@ -21,7 +21,8 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeScreenUiState.Success())
     val uiState = _uiState.asStateFlow()
-    private var githubRepositoriesPagingData: Flow<PagingData<GithubRepository>>? = null
+    var githubRepositoriesPagingData: Flow<PagingData<GithubRepository>>? = null
+        private set
 
     init {
         getGithubRepositoriesPagingData(word = "android")
