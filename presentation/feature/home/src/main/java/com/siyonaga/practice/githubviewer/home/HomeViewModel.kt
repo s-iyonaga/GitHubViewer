@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
+import com.siyonaga.practice.githubviewer.repository.Order
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
