@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
+import com.siyonaga.practice.githubviewer.model.Order
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -14,7 +15,7 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
 ) : GithubRepositoryRepository {
     override suspend fun getAllGithubRepositories(
         word: String,
-        order: String,
+        order: Order,
     ): Flow<PagingData<GithubRepository>> {
         return Pager(
             config = PagingConfig(
@@ -24,7 +25,7 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
             GithubRepositoriesPagingSource(
                 githubRepositoryApiService,
                 word,
-                order,
+                order.orderName,
             )
         }.flow
     }

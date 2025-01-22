@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.siyonaga.practice.githubviewer.model.GithubRepository
+import com.siyonaga.practice.githubviewer.model.Order
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +30,7 @@ class HomeViewModel @Inject constructor(
     fun changeOrder() {
         _uiState.update { state ->
             state.copy(
-                order = if (_uiState.value.order == "desc") "asc" else "desc",
+                order = if (_uiState.value.order == Order.DESC) Order.ASC else Order.DESC,
             )
         }
     }
