@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
             githubRepositoriesPagingData = runCatching {
                 githubRepositoryRepository.getAllGithubRepositories(
                     word = word,
-                    order = _uiState.value.order.orderName,
+                    order = _uiState.value.order,
                 )
             }.fold(
                 onSuccess = {

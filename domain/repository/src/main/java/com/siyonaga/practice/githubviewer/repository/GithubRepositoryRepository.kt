@@ -3,12 +3,13 @@ package com.siyonaga.practice.githubviewer.repository
 import androidx.paging.PagingData
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
+import com.siyonaga.practice.githubviewer.model.Order
 import kotlinx.coroutines.flow.Flow
 
 interface GithubRepositoryRepository {
     suspend fun getAllGithubRepositories(
         word: String,
-        order: String,
+        order: Order,
     ): Flow<PagingData<GithubRepository>>
 
     suspend fun getCurrentGithubRepository(
