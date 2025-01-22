@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
     fun changeOrder() {
         _uiState.update { state ->
             state.copy(
-                order = if (_uiState.value.order == "desc") "asc" else "desc",
+                order = if (_uiState.value.order == Order.DESC) Order.ASC else Order.DESC,
             )
         }
     }
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(
             githubRepositoriesPagingData = runCatching {
                 githubRepositoryRepository.getAllGithubRepositories(
                     word = word,
-                    order = _uiState.value.order,
+                    order = _uiState.value.order.orderName,
                 )
             }.fold(
                 onSuccess = {
