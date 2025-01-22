@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.dagger.hilt.android)
-    alias(libs.plugins.devtools.ksp)
 }
 
 android {
@@ -38,8 +36,6 @@ dependencies {
     implementation(project(":domain:model"))
 
     implementation(libs.androidx.paging.runtime)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
 }
