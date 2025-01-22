@@ -46,9 +46,19 @@ class HomeViewModel @Inject constructor(
 
     fun getGithubRepositoriesPagingData(word: String) {
         viewModelScope.launch {
-            githubRepositoriesPagingData.value = githubRepositoryRepository
-                .getAllGithubRepositories(word = word, order = order.value)
-                .cachedIn(viewModelScope)
+            githubRepositoriesPagingData.value = runCatching {
+                githubRepositoryRepository.getAllGithubRepositories(
+                    word = word,
+                    order = order.value,
+                )
+            }.fold(
+                onSuccess = {
+                    it.cachedIn(viewModelScope)
+                },
+                onFailure = {
+                    null
+                },
+            )
         }
     }
 }
