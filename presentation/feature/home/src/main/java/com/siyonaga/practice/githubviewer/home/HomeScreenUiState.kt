@@ -1,9 +1,16 @@
 package com.siyonaga.practice.githubviewer.home
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.siyonaga.practice.githubviewer.model.Order
 
 @Stable
-data class HomeScreenUiState(
-    val order: Order = Order.DESC,
-)
+sealed interface HomeScreenUiState {
+    @Immutable
+    data object Loading : HomeScreenUiState
+
+    @Immutable
+    data class Success(
+        val order: Order = Order.DESC,
+    ) : HomeScreenUiState
+}

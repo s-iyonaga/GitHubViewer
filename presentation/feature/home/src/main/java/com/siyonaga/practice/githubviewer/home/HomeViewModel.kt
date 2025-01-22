@@ -19,7 +19,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val githubRepositoryRepository: GithubRepositoryRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(HomeScreenUiState())
+    private val _uiState = MutableStateFlow(HomeScreenUiState.Success())
     val uiState = _uiState.asStateFlow()
     private var githubRepositoriesPagingData: Flow<PagingData<GithubRepository>>? = null
 
