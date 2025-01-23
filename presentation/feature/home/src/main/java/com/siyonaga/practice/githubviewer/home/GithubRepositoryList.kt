@@ -22,10 +22,8 @@ fun GithubRepositoryList(
         ) { index ->
             val githubRepository = lazyPagingItems[index]
 
-            if (githubRepository != null) {
+            githubRepository?.let {
                 GithubRepositoryListItem(githubRepository = githubRepository)
-            } else {
-                Text(text = "No List Item.")
             }
         }
     }
