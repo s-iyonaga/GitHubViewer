@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 
 @Composable
-fun GithubRepositoryListItem(
+internal fun GithubRepositoryListItem(
     githubRepository: GithubRepository,
     modifier: Modifier = Modifier,
 ) {

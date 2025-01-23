@@ -8,7 +8,7 @@ import androidx.paging.compose.itemKey
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 
 @Composable
-fun GithubRepositoryList(
+internal fun GithubRepositoryList(
     lazyPagingItems: LazyPagingItems<GithubRepository>,
     modifier: Modifier = Modifier,
 ) {
