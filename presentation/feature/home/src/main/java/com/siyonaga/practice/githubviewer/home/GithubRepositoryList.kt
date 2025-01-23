@@ -1,7 +1,6 @@
 package com.siyonaga.practice.githubviewer.home
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
@@ -10,8 +9,8 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 
 @Composable
 fun GithubRepositoryList(
-    modifier: Modifier = Modifier,
     lazyPagingItems: LazyPagingItems<GithubRepository>,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier,

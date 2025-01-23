@@ -9,8 +9,8 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 
 @Composable
 fun GithubRepositoryListItem(
-    modifier: Modifier = Modifier,
     githubRepository: GithubRepository,
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
         // TODO: AsyncImage()
