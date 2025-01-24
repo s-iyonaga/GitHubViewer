@@ -2,4 +2,5 @@
     <string name="app_name">GitHubViewer</string>
     <string name="change_to_desc">change to desc</string>
     <string name="change_to_asc">change to asc</string>
+    <string name="connection_error">Connection Error</string>
 </resources>
