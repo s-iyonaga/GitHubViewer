@@ -34,9 +34,11 @@ class HomeViewModel @Inject constructor(
                 order = if (_uiState.value.order == Order.DESC) Order.ASC else Order.DESC,
             )
         }
+        // TODO: 並べ替え順を変更したのに、それがトリガーされていない様子
+        getGithubRepositoriesPagingData(word = "android")
     }
 
-    fun getGithubRepositoriesPagingData(word: String) {
+    private fun getGithubRepositoriesPagingData(word: String) {
         viewModelScope.launch {
             githubRepositoriesPagingData = runCatching {
                 githubRepositoryRepository.getAllGithubRepositories(
