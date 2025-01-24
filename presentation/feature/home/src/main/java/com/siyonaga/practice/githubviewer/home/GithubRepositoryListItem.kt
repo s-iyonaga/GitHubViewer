@@ -30,7 +30,7 @@ internal fun GithubRepositoryListItem(
     ) {
         AsyncImage(
             model = githubRepository.owner.profileIconUrl,
-            contentDescription = null,
+            contentDescription = githubRepository.owner.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier.size(40.dp),
         )
