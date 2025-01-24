@@ -34,17 +34,17 @@ fun HomeScreenTopAppBar(
 
 @Composable
 private fun Order.toContentDescription(): String {
-    return if (this == Order.ASC) {
-        stringResource(R.string.change_to_desc)
-    } else {
-        stringResource(R.string.change_to_asc)
+    return when (this) {
+        Order.ASC -> stringResource(R.string.change_to_desc)
+        Order.DESC -> {
+            stringResource(R.string.change_to_asc)
+        }
     }
 }
 
 private fun Order.toFlipModifier(): Modifier {
-    return if (this == Order.ASC) {
-        Modifier.graphicsLayer { this.scaleY = -1.0f }
-    } else {
-        Modifier
+    return when (this) {
+        Order.ASC -> Modifier.graphicsLayer { this.scaleY = -1.0f }
+        Order.DESC -> Modifier
     }
 }
