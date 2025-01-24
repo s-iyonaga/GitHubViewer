@@ -1,7 +1,6 @@
 package com.siyonaga.practice.githubviewer.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -11,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.siyonaga.practice.githubviewer.model.Order
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,10 +21,7 @@ fun HomeScreenTopAppBar(
     TopAppBar(
         title = { Text(text = stringResource(R.string.app_name)) },
         actions = {
-            IconButton(
-                onClick = onSortButtonClicked,
-                modifier = Modifier.size(48.dp),
-            ) {
+            IconButton(onClick = onSortButtonClicked) {
                 Image(
                     painter = painterResource(R.drawable.sort),
                     contentDescription = order.toContentDescription(),
