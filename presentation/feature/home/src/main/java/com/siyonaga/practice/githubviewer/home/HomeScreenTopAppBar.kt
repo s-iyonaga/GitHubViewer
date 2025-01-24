@@ -20,17 +20,6 @@ fun HomeScreenTopAppBar(
     order: Order,
     onSortButtonClicked: () -> Unit,
 ) {
-    val contentDescription = if (order == Order.ASC) {
-        "change to desc"
-    } else {
-        "change to asc"
-    }
-    val flipModifier = if (order == Order.ASC) {
-        Modifier.graphicsLayer { this.scaleY = -1.0f }
-    } else {
-        Modifier
-    }
-
     TopAppBar(
         title = { Text(text = stringResource(R.string.app_name)) },
         actions = {
@@ -40,10 +29,27 @@ fun HomeScreenTopAppBar(
             ) {
                 Image(
                     painter = painterResource(R.drawable.sort),
-                    contentDescription = contentDescription,
-                    modifier = flipModifier,
+                    contentDescription = order.toContentDescription(),
+                    modifier = order.toFlipModifier(),
                 )
             }
         },
     )
+}
+
+@Composable
+private fun Order.toContentDescription(): String {
+    return if (this == Order.ASC) {
+        stringResource(R.string.change_to_desc)
+    } else {
+        stringResource(R.string.change_to_asc)
+    }
+}
+
+private fun Order.toFlipModifier(): Modifier {
+    return if (this == Order.ASC) {
+        Modifier.graphicsLayer { this.scaleY = -1.0f }
+    } else {
+        Modifier
+    }
 }
