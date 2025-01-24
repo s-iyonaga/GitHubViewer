@@ -34,7 +34,9 @@ internal fun GithubRepositoryListItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier.size(40.dp),
         )
+
         Spacer(modifier = Modifier.width(16.dp))
+
         Column(modifier = Modifier.padding(vertical = 12.dp)) {
             Text(text = githubRepository.name)
             Row {
@@ -43,7 +45,9 @@ internal fun GithubRepositoryListItem(
                     contentDescription = null,
                     tint = Color(0xFFF2D602),
                 )
+
                 Spacer(modifier = Modifier.width(8.dp))
+
                 Text(text = githubRepository.stargazersCount.toString())
             }
         }
