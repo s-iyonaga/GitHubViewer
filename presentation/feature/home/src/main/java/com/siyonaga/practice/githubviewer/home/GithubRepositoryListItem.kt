@@ -36,7 +36,6 @@ internal fun GithubRepositoryListItem(
         )
 
         Spacer(modifier = Modifier.width(16.dp))
-
         Column(modifier = Modifier.padding(vertical = 12.dp)) {
             Text(text = githubRepository.name)
             Row {
@@ -47,7 +46,6 @@ internal fun GithubRepositoryListItem(
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
-
                 Text(text = githubRepository.stargazersCount.toString())
             }
         }
