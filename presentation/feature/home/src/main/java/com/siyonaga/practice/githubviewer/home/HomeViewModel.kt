@@ -8,7 +8,6 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.Order
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -21,8 +20,9 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeScreenUiState.Success())
     val uiState = _uiState.asStateFlow()
-    var githubRepositoriesPagingData: Flow<PagingData<GithubRepository>>? = null
-        private set
+    private val _githubRepositoriesPagingData: MutableStateFlow<PagingData<GithubRepository>> =
+        MutableStateFlow(PagingData.empty())
+    val githubRepositoriesPagingData = _githubRepositoriesPagingData.asStateFlow()
 
     init {
         getGithubRepositoriesPagingData(word = "android")
@@ -34,23 +34,24 @@ class HomeViewModel @Inject constructor(
                 order = if (_uiState.value.order == Order.DESC) Order.ASC else Order.DESC,
             )
         }
-        // TODO: 並べ替え順を変更したのに、それがトリガーされていない様子
         getGithubRepositoriesPagingData(word = "android")
     }
 
     private fun getGithubRepositoriesPagingData(word: String) {
         viewModelScope.launch {
-            githubRepositoriesPagingData = runCatching {
+            runCatching {
                 githubRepositoryRepository.getAllGithubRepositories(
                     word = word,
                     order = _uiState.value.order,
                 )
             }.fold(
                 onSuccess = {
-                    it.cachedIn(viewModelScope)
+                    it.cachedIn(viewModelScope).collect { pagingData ->
+                        _githubRepositoriesPagingData.value = pagingData
+                    }
                 },
                 onFailure = {
-                    null
+                    _githubRepositoriesPagingData.value = PagingData.empty()
                 },
             )
         }
