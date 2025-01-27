@@ -19,7 +19,14 @@ fun GitHubViewerApp(
     ) {
         composable<Home> {
             // todo: ホーム画面のコンテンツ
-            HomeScreen(viewModel = hiltViewModel())
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToDetail = { ownerName, repoName ->
+                    navController.navigate(
+                        Detail(ownerName = ownerName, repoName = repoName),
+                    )
+                },
+            )
         }
         composable<Detail> { backStackEntry ->
             // todo 詳細画面

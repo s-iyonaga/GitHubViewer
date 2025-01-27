@@ -25,7 +25,10 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onNavigateToDetail: (String, String) -> Unit,
+) {
     val uiState by viewModel.uiState.collectAsState()
     val lazyPagingItems = viewModel.githubRepositoriesPagingData.collectAsLazyPagingItems()
 
@@ -49,6 +52,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
             is LoadState.NotLoading -> {
                 GithubRepositoryList(
                     lazyPagingItems = lazyPagingItems,
+                    onNavigateToDetail = onNavigateToDetail,
                 )
             }
             is LoadState.Loading -> {
