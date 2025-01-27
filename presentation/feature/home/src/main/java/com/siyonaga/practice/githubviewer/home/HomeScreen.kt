@@ -3,14 +3,15 @@ package com.siyonaga.practice.githubviewer.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,26 +29,31 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val uiState by viewModel.uiState.collectAsState()
     val lazyPagingItems = viewModel.githubRepositoriesPagingData.collectAsLazyPagingItems()
 
-    Scaffold(
-        topBar = {
-            HomeScreenTopAppBar(
-                order = uiState.order,
-                onSortButtonClicked = {
-                    viewModel.changeOrder()
-                },
-            )
-        },
-    ) { contentPadding ->
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        HomeScreenTopAppBar(
+            word = uiState.word,
+            order = uiState.order,
+            onSearchClicked = { word ->
+                viewModel.searchGithubRepositories(word)
+            },
+            onSortButtonClicked = {
+                viewModel.changeOrder()
+            },
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
         when (lazyPagingItems.loadState.refresh) {
             is LoadState.NotLoading -> {
                 GithubRepositoryList(
                     lazyPagingItems = lazyPagingItems,
-                    contentPadding = contentPadding,
                 )
             }
             is LoadState.Loading -> {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.weight(1.0f),
                     contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator()
@@ -56,7 +62,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
             is LoadState.Error -> {
                 // TODO: （現時点ではここに辿り着けない）
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.weight(1.0f),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
