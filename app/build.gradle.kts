@@ -14,8 +14,8 @@ android {
         applicationId = "com.siyonaga.practice.githubviewer"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0.2"
+        versionCode = 4
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,6 +44,9 @@ android {
 dependencies {
     implementation(project(":presentation:feature:detail"))
     implementation(project(":presentation:feature:home"))
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
+    implementation(project(":data"))
 
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
@@ -58,6 +61,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
 
     debugImplementation(libs.androidx.ui.tooling)
