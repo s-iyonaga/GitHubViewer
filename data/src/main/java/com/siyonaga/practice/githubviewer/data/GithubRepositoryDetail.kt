@@ -11,4 +11,7 @@ internal data class GithubRepositoryDetail(
 )
 
 @OptIn(ExperimentalEncodingApi::class)
-internal val GithubRepositoryDetail.readmeText get() = Base64.decode(content).decodeToString()
+internal fun GithubRepositoryDetail.readmeText(): String {
+    // TODO: デコードに失敗するため、何らかの処理を加えることとする
+    return Base64.decode(this.content).decodeToString()
+}
