@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.siyonaga.practice.githubviewer.detail.DetailScreen
 import com.siyonaga.practice.githubviewer.home.HomeScreen
 
 @Composable
@@ -18,7 +19,6 @@ fun GitHubViewerApp(
         startDestination = Home,
     ) {
         composable<Home> {
-            // todo: ホーム画面のコンテンツ
             HomeScreen(
                 viewModel = hiltViewModel(),
                 onNavigateToDetail = { ownerName, repoName ->
@@ -29,8 +29,16 @@ fun GitHubViewerApp(
             )
         }
         composable<Detail> { backStackEntry ->
-            // todo 詳細画面
             val detail: Detail = backStackEntry.toRoute()
+
+            DetailScreen(
+                ownerName = detail.ownerName,
+                repoName = detail.repoName,
+                viewModel = hiltViewModel(),
+                onNavigateToHome = {
+                    navController.navigate(Home)
+                },
+            )
         }
     }
 }
