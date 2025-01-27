@@ -10,7 +10,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    val lazyPagingItems = viewModel.githubRepositoriesPagingData.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
 
     Scaffold(
         topBar = {
