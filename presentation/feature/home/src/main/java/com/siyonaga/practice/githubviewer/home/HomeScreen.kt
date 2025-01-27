@@ -39,12 +39,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
         },
     ) { contentPadding ->
         when (lazyPagingItems.loadState.refresh) {
-            is LoadState.NotLoading -> {
-                GithubRepositoryList(
-                    lazyPagingItems = lazyPagingItems,
-                    contentPadding = contentPadding,
-                )
-            }
             is LoadState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -53,8 +47,13 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     CircularProgressIndicator()
                 }
             }
+            is LoadState.NotLoading -> {
+                GithubRepositoryList(
+                    lazyPagingItems = lazyPagingItems,
+                    contentPadding = contentPadding,
+                )
+            }
             is LoadState.Error -> {
-                // TODO: （現時点ではここに辿り着けない）
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
