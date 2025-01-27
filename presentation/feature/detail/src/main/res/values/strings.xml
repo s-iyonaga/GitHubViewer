@@ -1,3 +1,4 @@
 <resources>
     <string name="navigate_to_home">navigate to home</string>
+    <string name="connection_error">Connection Error</string>
 </resources>
