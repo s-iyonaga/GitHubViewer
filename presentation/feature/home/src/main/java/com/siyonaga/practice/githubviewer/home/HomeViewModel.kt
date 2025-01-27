@@ -25,7 +25,16 @@ class HomeViewModel @Inject constructor(
     val githubRepositoriesPagingData = _githubRepositoriesPagingData.asStateFlow()
 
     init {
-        getGithubRepositoriesPagingData(word = "android")
+        getGithubRepositoriesPagingData()
+    }
+
+    fun searchGithubRepositories(word: String) {
+        _uiState.update { state ->
+            state.copy(
+                word = word,
+            )
+        }
+        getGithubRepositoriesPagingData()
     }
 
     fun changeOrder() {
@@ -34,14 +43,14 @@ class HomeViewModel @Inject constructor(
                 order = if (_uiState.value.order == Order.DESC) Order.ASC else Order.DESC,
             )
         }
-        getGithubRepositoriesPagingData(word = "android")
+        getGithubRepositoriesPagingData()
     }
 
-    private fun getGithubRepositoriesPagingData(word: String) {
+    private fun getGithubRepositoriesPagingData() {
         viewModelScope.launch {
             runCatching {
                 githubRepositoryRepository.getAllGithubRepositories(
-                    word = word,
+                    word = _uiState.value.word,
                     order = _uiState.value.order,
                 )
             }.fold(

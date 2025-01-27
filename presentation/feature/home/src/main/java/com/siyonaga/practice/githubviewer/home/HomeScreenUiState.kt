@@ -11,6 +11,7 @@ sealed interface HomeScreenUiState {
 
     @Immutable
     data class Success(
+        val word: String = "android",
         val order: Order = Order.DESC,
     ) : HomeScreenUiState
 }
