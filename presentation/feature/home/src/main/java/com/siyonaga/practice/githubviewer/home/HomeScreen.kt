@@ -1,16 +1,16 @@
 package com.siyonaga.practice.githubviewer.home
 
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    val lazyPagingItems = viewModel.githubRepositoriesPagingData?.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
 
     Scaffold(
         topBar = {
@@ -22,13 +22,14 @@ fun HomeScreen(viewModel: HomeViewModel) {
             )
         },
     ) { contentPadding ->
-        if (lazyPagingItems != null) {
-            GithubRepositoryList(
-                lazyPagingItems = lazyPagingItems,
-                contentPadding = contentPadding,
-            )
-        } else {
-            Text(text = "No List Items.")
+        when (lazyPagingItems.loadState.refresh) {
+            is LoadState.NotLoading -> {
+                GithubRepositoryList(
+                    lazyPagingItems = lazyPagingItems,
+                    contentPadding = contentPadding,
+                )
+            }
+            else -> {}
         }
     }
 }
