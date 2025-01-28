@@ -9,10 +9,10 @@ sealed interface DetailScreenUiState {
     data object Loading : DetailScreenUiState
 
     @Immutable
-    data object Error : DetailScreenUiState
-
-    @Immutable
     data class Success(
         val readmeText: String,
     ) : DetailScreenUiState
+
+    @Immutable
+    data object Error : DetailScreenUiState
 }
