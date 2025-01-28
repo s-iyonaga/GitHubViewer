@@ -49,12 +49,6 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
         when (lazyPagingItems.loadState.refresh) {
-            is LoadState.NotLoading -> {
-                GithubRepositoryList(
-                    lazyPagingItems = lazyPagingItems,
-                    onNavigateToDetail = onNavigateToDetail,
-                )
-            }
             is LoadState.Loading -> {
                 Box(
                     modifier = Modifier.weight(1.0f),
@@ -63,8 +57,13 @@ fun HomeScreen(
                     CircularProgressIndicator()
                 }
             }
+            is LoadState.NotLoading -> {
+                GithubRepositoryList(
+                    lazyPagingItems = lazyPagingItems,
+                    onNavigateToDetail = onNavigateToDetail,
+                )
+            }
             is LoadState.Error -> {
-                // TODO: （現時点ではここに辿り着けない）
                 Column(
                     modifier = Modifier.weight(1.0f),
                     verticalArrangement = Arrangement.Center,

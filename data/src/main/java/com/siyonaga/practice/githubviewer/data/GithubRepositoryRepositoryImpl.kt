@@ -13,7 +13,7 @@ import javax.inject.Inject
 internal class GithubRepositoryRepositoryImpl @Inject constructor(
     private val githubRepositoryApiService: GithubRepositoryApiService,
 ) : GithubRepositoryRepository {
-    override suspend fun getAllGithubRepositories(
+    override fun getAllGithubRepositories(
         word: String,
         order: Order,
     ): Flow<PagingData<GithubRepository>> {
