@@ -11,4 +11,13 @@ internal data class GithubRepositoryDetail(
 )
 
 @OptIn(ExperimentalEncodingApi::class)
-internal val GithubRepositoryDetail.readmeText get() = Base64.decode(content).decodeToString()
+internal fun GithubRepositoryDetail.readmeText(): String {
+    val contentPerLine = this.content.split("\n")
+    var decodeContent = ""
+
+    contentPerLine.forEach {
+        decodeContent += Base64.decode(it).decodeToString()
+    }
+
+    return decodeContent
+}

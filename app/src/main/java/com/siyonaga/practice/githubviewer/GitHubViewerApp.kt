@@ -3,11 +3,12 @@ package com.siyonaga.practice.githubviewer
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
+import com.siyonaga.practice.githubviewer.detail.DetailScreen
+import com.siyonaga.practice.githubviewer.detail.DetailViewModel
 import com.siyonaga.practice.githubviewer.home.HomeScreen
 
 @Composable
@@ -16,24 +17,30 @@ fun GitHubViewerApp(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "home",
+        startDestination = HomeRoute,
     ) {
-        composable(route = "home") {
-            // todo: ホーム画面のコンテンツ
-            HomeScreen(viewModel = hiltViewModel())
-        }
-        composable(
-            route = "detail/{repoName}",
-            arguments = listOf(
-                navArgument(name = "repoName") {
-                    type = NavType.StringType
-                    nullable = false
+        composable<HomeRoute> {
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToDetail = { ownerName, repoName ->
+                    navController.navigate(
+                        DetailRoute(ownerName = ownerName, repoName = repoName),
+                    )
                 },
-            ),
-        ) { entry ->
-            val repoName = entry.arguments?.getString("repoName")
+            )
+        }
+        composable<DetailRoute> { backStackEntry ->
+            val detail: DetailRoute = backStackEntry.toRoute()
 
-            // todo 詳細画面
+            DetailScreen(
+                repoName = detail.repoName,
+                viewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory> {
+                    it.create(ownerName = detail.ownerName, repoName = detail.repoName)
+                },
+                onNavigateToHome = {
+                    navController.navigate(HomeRoute)
+                },
+            )
         }
     }
 }
