@@ -32,7 +32,6 @@ class DetailViewModel @Inject constructor(
                     DetailScreenUiState.Error
                 },
             )
-            println(_uiState.value)
         }
     }
 }
