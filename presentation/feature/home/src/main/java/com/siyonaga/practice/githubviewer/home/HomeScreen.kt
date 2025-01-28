@@ -30,7 +30,7 @@ fun HomeScreen(
     onNavigateToDetail: (String, String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val lazyPagingItems = viewModel.githubRepositoriesPagingData.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
 
     Column(
         modifier = Modifier.fillMaxSize(),
