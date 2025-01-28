@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.siyonaga.practice.githubviewer.detail.DetailScreen
+import com.siyonaga.practice.githubviewer.detail.DetailViewModel
 import com.siyonaga.practice.githubviewer.home.HomeScreen
 
 @Composable
@@ -32,9 +33,10 @@ fun GitHubViewerApp(
             val detail: Detail = backStackEntry.toRoute()
 
             DetailScreen(
-                ownerName = detail.ownerName,
                 repoName = detail.repoName,
-                viewModel = hiltViewModel(),
+                viewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory> {
+                    it.create(ownerName = detail.ownerName, repoName = detail.repoName)
+                },
                 onNavigateToHome = {
                     navController.navigate(Home)
                 },

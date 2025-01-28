@@ -25,13 +25,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DetailScreen(
-    ownerName: String,
     repoName: String,
     viewModel: DetailViewModel,
     onNavigateToHome: () -> Unit,
 ) {
-    viewModel.getGithubRepositoryDetail(ownerName, repoName)
-
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
