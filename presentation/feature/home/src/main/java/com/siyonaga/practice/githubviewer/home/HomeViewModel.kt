@@ -34,7 +34,6 @@ class HomeViewModel @Inject constructor(
                 word = word,
             )
         }
-        getGithubRepositoriesPagingData()
     }
 
     fun changeOrder() {

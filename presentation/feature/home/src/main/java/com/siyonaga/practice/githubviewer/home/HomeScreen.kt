@@ -57,7 +57,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
             is LoadState.NotLoading -> {
                 GithubRepositoryList(
                     lazyPagingItems = lazyPagingItems,
-                    contentPadding = contentPadding,
                 )
             }
             is LoadState.Error -> {
