@@ -51,6 +51,16 @@ fun DetailScreen(
                     CircularProgressIndicator()
                 }
             }
+            is DetailScreenUiState.Success -> {
+                Column(
+                    modifier = Modifier
+                        .padding(contentPadding)
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState()),
+                ) {
+                    Text(text = state.readmeText)
+                }
+            }
             is DetailScreenUiState.Error -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -67,16 +77,6 @@ fun DetailScreen(
                         text = stringResource(R.string.connection_error),
                         modifier = Modifier.padding(horizontal = 16.dp),
                     )
-                }
-            }
-            is DetailScreenUiState.Success -> {
-                Column(
-                    modifier = Modifier
-                        .padding(contentPadding)
-                        .padding(16.dp)
-                        .verticalScroll(rememberScrollState()),
-                ) {
-                    Text(text = state.readmeText)
                 }
             }
         }
