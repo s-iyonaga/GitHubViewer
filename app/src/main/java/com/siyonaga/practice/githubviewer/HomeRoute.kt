@@ -3,7 +3,4 @@ package com.siyonaga.practice.githubviewer
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Detail(
-    val ownerName: String,
-    val repoName: String,
-)
+data object HomeRoute

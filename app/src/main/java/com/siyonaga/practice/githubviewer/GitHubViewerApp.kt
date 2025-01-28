@@ -17,20 +17,20 @@ fun GitHubViewerApp(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Home,
+        startDestination = HomeRoute,
     ) {
-        composable<Home> {
+        composable<HomeRoute> {
             HomeScreen(
                 viewModel = hiltViewModel(),
                 onNavigateToDetail = { ownerName, repoName ->
                     navController.navigate(
-                        Detail(ownerName = ownerName, repoName = repoName),
+                        DetailRoute(ownerName = ownerName, repoName = repoName),
                     )
                 },
             )
         }
-        composable<Detail> { backStackEntry ->
-            val detail: Detail = backStackEntry.toRoute()
+        composable<DetailRoute> { backStackEntry ->
+            val detail: DetailRoute = backStackEntry.toRoute()
 
             DetailScreen(
                 repoName = detail.repoName,
@@ -38,7 +38,7 @@ fun GitHubViewerApp(
                     it.create(ownerName = detail.ownerName, repoName = detail.repoName)
                 },
                 onNavigateToHome = {
-                    navController.navigate(Home)
+                    navController.navigate(HomeRoute)
                 },
             )
         }
