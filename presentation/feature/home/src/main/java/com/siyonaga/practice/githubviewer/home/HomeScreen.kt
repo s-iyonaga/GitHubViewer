@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -53,11 +54,14 @@ fun HomeScreen(
                     HomeScreenTopAppBar(
                         word = state.word,
                         order = state.order,
+                        modifier = Modifier.fillMaxWidth(),
                         onSearchClicked = { word ->
                             viewModel.searchGithubRepositories(word)
                         },
                         onSortButtonClicked = {
-                            viewModel.changeOrder()
+                            if (refreshLoadState is LoadState.NotLoading) {
+                                viewModel.changeOrder()
+                            }
                         },
                     )
                 },
@@ -65,18 +69,18 @@ fun HomeScreen(
                     SnackbarHost(hostState = snackbarHostState)
                 },
             ) { contentPadding ->
-                Column {
-                    Spacer(modifier = Modifier.padding(contentPadding))
-                    when (refreshLoadState) {
-                        is LoadState.Loading -> {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center,
-                            ) {
-                                CircularProgressIndicator()
-                            }
+                when (refreshLoadState) {
+                    is LoadState.Loading -> {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
                         }
-                        is LoadState.NotLoading -> {
+                    }
+                    is LoadState.NotLoading -> {
+                        Column {
+                            Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
                             GithubRepositoryList(
                                 lazyPagingItems = lazyPagingItems,
                                 onNavigateToDetail = onNavigateToDetail,
@@ -93,33 +97,33 @@ fun HomeScreen(
                                 }
                             }
                         }
-                        is LoadState.Error -> {
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
+                    }
+                    is LoadState.Error -> {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Warning,
+                                contentDescription = stringResource(R.string.connection_error_text),
+                                modifier = Modifier.size(80.dp),
+                                tint = Color.Red,
+                            )
+
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = stringResource(R.string.connection_error_text),
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                            )
+
+                            Spacer(modifier = Modifier.height(16.dp))
+                            TextButton(
+                                onClick = {
+                                    lazyPagingItems.refresh()
+                                },
                             ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Warning,
-                                    contentDescription = stringResource(R.string.connection_error_text),
-                                    modifier = Modifier.size(80.dp),
-                                    tint = Color.Red,
-                                )
-
-                                Spacer(modifier = Modifier.height(16.dp))
-                                Text(
-                                    text = stringResource(R.string.connection_error_text),
-                                    modifier = Modifier.padding(horizontal = 16.dp),
-                                )
-
-                                Spacer(modifier = Modifier.height(16.dp))
-                                TextButton(
-                                    onClick = {
-                                        lazyPagingItems.refresh()
-                                    },
-                                ) {
-                                    Text(text = stringResource(R.string.retry_text))
-                                }
+                                Text(text = stringResource(R.string.retry_text))
                             }
                         }
                     }
