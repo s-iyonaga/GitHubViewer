@@ -12,6 +12,12 @@ internal data class GithubRepositoryDetail(
 
 @OptIn(ExperimentalEncodingApi::class)
 internal fun GithubRepositoryDetail.readmeText(): String {
-    // TODO: デコードに失敗するため、何らかの処理を加えることとする
-    return Base64.decode(this.content).decodeToString()
+    val contentPerLine = this.content.split("\n")
+    var decodeContent = ""
+
+    contentPerLine.forEach {
+        decodeContent += Base64.decode(it).decodeToString()
+    }
+
+    return decodeContent
 }
