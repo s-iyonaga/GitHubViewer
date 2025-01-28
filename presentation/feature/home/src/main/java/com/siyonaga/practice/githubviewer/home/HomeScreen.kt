@@ -27,7 +27,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    val lazyPagingItems = viewModel.githubRepositoriesPagingData.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -46,11 +46,6 @@ fun HomeScreen(viewModel: HomeViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
         when (lazyPagingItems.loadState.refresh) {
-            is LoadState.NotLoading -> {
-                GithubRepositoryList(
-                    lazyPagingItems = lazyPagingItems,
-                )
-            }
             is LoadState.Loading -> {
                 Box(
                     modifier = Modifier.weight(1.0f),
@@ -59,8 +54,13 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     CircularProgressIndicator()
                 }
             }
+            is LoadState.NotLoading -> {
+                GithubRepositoryList(
+                    lazyPagingItems = lazyPagingItems,
+                    contentPadding = contentPadding,
+                )
+            }
             is LoadState.Error -> {
-                // TODO: （現時点ではここに辿り着けない）
                 Column(
                     modifier = Modifier.weight(1.0f),
                     verticalArrangement = Arrangement.Center,
