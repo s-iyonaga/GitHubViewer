@@ -20,13 +20,15 @@ class DetailViewModel @Inject constructor(
     fun getGithubRepositoryDetail(ownerName: String, repoName: String) {
         viewModelScope.launch {
             _uiState.value = runCatching {
-                githubRepositoryRepository.getCurrentGithubRepository(
+                val githubRepositoryDetail = githubRepositoryRepository.getCurrentGithubRepository(
                     ownerName = ownerName,
                     repoName = repoName,
                 )
+
+                DetailScreenUiState.Success(githubRepositoryDetail.readmeText)
             }.fold(
                 onSuccess = {
-                    DetailScreenUiState.Success(it.readmeText)
+                    it
                 },
                 onFailure = {
                     DetailScreenUiState.Error
