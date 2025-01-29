@@ -55,7 +55,7 @@ fun HomeScreenTopAppBar(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(R.string.search_str),
+                            contentDescription = stringResource(R.string.search_label),
                         )
                     },
                     trailingIcon = {
@@ -75,7 +75,7 @@ fun HomeScreenTopAppBar(
             expanded = expanded,
             onExpandedChange = { expanded = it },
         ) {
-            // no-op
+            // No Content
         }
     }
 }
