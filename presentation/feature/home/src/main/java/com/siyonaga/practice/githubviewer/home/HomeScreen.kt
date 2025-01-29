@@ -32,12 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.siyonaga.practice.githubviewer.model.GithubRepository
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
-    onNavigateToDetail: (String, String) -> Unit,
+    onClickListItem: (GithubRepository) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
@@ -82,7 +83,7 @@ fun HomeScreen(
                             Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
                             GithubRepositoryList(
                                 lazyPagingItems = lazyPagingItems,
-                                onNavigateToDetail = onNavigateToDetail,
+                                onClickListItem = onClickListItem,
                             )
                             if (appendLoadState is LoadState.Error) {
                                 LaunchedEffect(Unit) {

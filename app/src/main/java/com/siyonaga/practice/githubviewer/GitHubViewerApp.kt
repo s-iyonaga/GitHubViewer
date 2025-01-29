@@ -22,9 +22,12 @@ fun GitHubViewerApp(
         composable<HomeRoute> {
             HomeScreen(
                 viewModel = hiltViewModel(),
-                onNavigateToDetail = { ownerName, repoName ->
+                onClickListItem = { githubRepository ->
                     navController.navigate(
-                        DetailRoute(ownerName = ownerName, repoName = repoName),
+                        DetailRoute(
+                            ownerName = githubRepository.owner.name,
+                            repoName = githubRepository.name,
+                        ),
                     )
                 },
             )

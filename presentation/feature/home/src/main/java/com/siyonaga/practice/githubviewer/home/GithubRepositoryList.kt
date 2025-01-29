@@ -14,7 +14,7 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 internal fun GithubRepositoryList(
     lazyPagingItems: LazyPagingItems<GithubRepository>,
     modifier: Modifier = Modifier,
-    onNavigateToDetail: (String, String) -> Unit,
+    onClickListItem: (GithubRepository) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         items(
@@ -27,7 +27,7 @@ internal fun GithubRepositoryList(
                 GithubRepositoryListItem(
                     githubRepository = githubRepository,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    onNavigateToDetail = onNavigateToDetail,
+                    onClickListItem = onClickListItem,
                 )
             }
         }

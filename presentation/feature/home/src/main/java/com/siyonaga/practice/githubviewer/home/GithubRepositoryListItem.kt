@@ -24,14 +24,11 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 internal fun GithubRepositoryListItem(
     githubRepository: GithubRepository,
     modifier: Modifier = Modifier,
-    onNavigateToDetail: (String, String) -> Unit,
+    onClickListItem: (GithubRepository) -> Unit,
 ) {
     Row(
         modifier = modifier.clickable {
-            onNavigateToDetail(
-                githubRepository.owner.name,
-                githubRepository.name,
-            )
+            onClickListItem(githubRepository)
         },
         verticalAlignment = Alignment.CenterVertically,
     ) {
