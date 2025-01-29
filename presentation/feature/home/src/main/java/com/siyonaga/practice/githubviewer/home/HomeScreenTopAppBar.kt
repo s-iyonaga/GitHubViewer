@@ -48,7 +48,6 @@ fun HomeScreenTopAppBar(
                         expanded = false
                     },
                     expanded = expanded,
-                    enabled = isNotError,
                     onExpandedChange = { expanded = it },
                     placeholder = {
                         Text(text = stringResource(R.string.search_placeholder))
