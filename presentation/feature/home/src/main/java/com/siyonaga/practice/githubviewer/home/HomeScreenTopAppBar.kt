@@ -26,7 +26,7 @@ import com.siyonaga.practice.githubviewer.model.Order
 fun HomeScreenTopAppBar(
     word: String,
     order: Order,
-    isNotError: Boolean,
+    enable: Boolean,
     modifier: Modifier = Modifier,
     onSearchClicked: (String) -> Unit,
     onSortButtonClicked: () -> Unit,
@@ -61,7 +61,7 @@ fun HomeScreenTopAppBar(
                     trailingIcon = {
                         IconButton(
                             onClick = onSortButtonClicked,
-                            enabled = isNotError,
+                            enabled = enable,
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.sort),

@@ -55,7 +55,7 @@ fun HomeScreen(
                     HomeScreenTopAppBar(
                         word = state.word,
                         order = state.order,
-                        isNotError = refreshLoadState !is LoadState.Error,
+                        enable = refreshLoadState !is LoadState.Error,
                         modifier = Modifier.fillMaxWidth(),
                         onSearchClicked = { word ->
                             viewModel.searchGithubRepositories(word)
