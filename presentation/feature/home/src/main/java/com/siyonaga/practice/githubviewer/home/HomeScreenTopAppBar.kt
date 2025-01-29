@@ -1,6 +1,5 @@
 package com.siyonaga.practice.githubviewer.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -27,6 +26,7 @@ import com.siyonaga.practice.githubviewer.model.Order
 fun HomeScreenTopAppBar(
     word: String,
     order: Order,
+    isNotLoading: Boolean,
     modifier: Modifier = Modifier,
     onSearchClicked: (String) -> Unit,
     onSortButtonClicked: () -> Unit,
@@ -48,6 +48,7 @@ fun HomeScreenTopAppBar(
                         expanded = false
                     },
                     expanded = expanded,
+                    enabled = isNotLoading,
                     onExpandedChange = { expanded = it },
                     placeholder = {
                         Text(text = stringResource(R.string.search_placeholder))
@@ -59,8 +60,11 @@ fun HomeScreenTopAppBar(
                         )
                     },
                     trailingIcon = {
-                        IconButton(onClick = onSortButtonClicked) {
-                            Image(
+                        IconButton(
+                            onClick = onSortButtonClicked,
+                            enabled = isNotLoading,
+                        ) {
+                            Icon(
                                 painter = painterResource(R.drawable.sort),
                                 contentDescription = order.toContentDescription(),
                                 modifier = order.toFlipModifier(),

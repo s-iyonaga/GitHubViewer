@@ -54,14 +54,13 @@ fun HomeScreen(
                     HomeScreenTopAppBar(
                         word = state.word,
                         order = state.order,
+                        isNotLoading = refreshLoadState is LoadState.NotLoading,
                         modifier = Modifier.fillMaxWidth(),
                         onSearchClicked = { word ->
                             viewModel.searchGithubRepositories(word)
                         },
                         onSortButtonClicked = {
-                            if (refreshLoadState is LoadState.NotLoading) {
-                                viewModel.changeOrder()
-                            }
+                            viewModel.changeOrder()
                         },
                     )
                 },
