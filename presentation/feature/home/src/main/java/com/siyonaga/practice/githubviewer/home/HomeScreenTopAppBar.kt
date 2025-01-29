@@ -74,7 +74,9 @@ fun HomeScreenTopAppBar(
             },
             expanded = expanded,
             onExpandedChange = { expanded = it },
-        ) {}
+        ) {
+            // no-op
+        }
     }
 }
 
