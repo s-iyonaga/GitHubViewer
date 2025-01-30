@@ -119,9 +119,7 @@ fun HomeScreen(
 
                             Spacer(modifier = Modifier.height(16.dp))
                             TextButton(
-                                onClick = {
-                                    lazyPagingItems.refresh()
-                                },
+                                onClick = { lazyPagingItems.refresh() },
                             ) {
                                 Text(text = stringResource(R.string.retry_text))
                             }
