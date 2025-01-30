@@ -1,4 +1,5 @@
 <resources>
-    <string name="navigate_to_home">navigate to home</string>
-    <string name="connection_error">Connection Error</string>
+    <string name="navigate_to_home">Navigate to home</string>
+    <string name="connection_error_text">通信が失敗しました</string>
+    <string name="retry_text">リトライ</string>
 </resources>
