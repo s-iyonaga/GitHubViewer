@@ -10,18 +10,16 @@ internal class GithubRepositoriesPagingSource(
     private val word: String,
     private val order: String,
 ) : PagingSource<Int, GithubRepository>() {
-    companion object {
-        const val PER_PAGE = 30
-    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
+        val perPage = params.loadSize
         val nowPage = params.key ?: 1
 
         return runCatching {
             githubRepositoryApiService.getAllGithubRepositories(
                 word = word,
                 order = order,
-                perPage = PER_PAGE,
+                perPage = perPage,
                 nowPage = nowPage,
             ).items.map {
                 GithubRepository(
