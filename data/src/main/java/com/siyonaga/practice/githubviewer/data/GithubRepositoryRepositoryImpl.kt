@@ -20,6 +20,7 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = 30,
+                initialLoadSize = 30,
             ),
         ) {
             GithubRepositoriesPagingSource(
