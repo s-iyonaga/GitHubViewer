@@ -12,7 +12,7 @@ import com.siyonaga.practice.githubviewer.detail.DetailViewModel
 import com.siyonaga.practice.githubviewer.home.HomeScreen
 
 @Composable
-fun GitHubViewerApp(
+internal fun GitHubViewerApp(
     navController: NavHostController = rememberNavController(),
 ) {
     NavHost(
