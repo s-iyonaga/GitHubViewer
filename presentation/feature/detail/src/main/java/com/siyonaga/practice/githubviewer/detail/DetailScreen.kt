@@ -66,12 +66,12 @@ fun DetailScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Warning,
-                        contentDescription = stringResource(R.string.connection_error),
+                        contentDescription = stringResource(R.string.connection_error_text),
                         modifier = Modifier.size(40.dp),
                         tint = Color.Red,
                     )
                     Text(
-                        text = stringResource(R.string.connection_error),
+                        text = stringResource(R.string.connection_error_text),
                         modifier = Modifier.padding(horizontal = 16.dp),
                     )
                 }
