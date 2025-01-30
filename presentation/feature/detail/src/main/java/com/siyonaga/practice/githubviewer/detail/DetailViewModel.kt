@@ -33,6 +33,10 @@ class DetailViewModel @AssistedInject constructor(
         getGithubRepositoryDetail()
     }
 
+    fun retry() {
+        getGithubRepositoryDetail()
+    }
+
     private fun getGithubRepositoryDetail() {
         viewModelScope.launch {
             _uiState.value = runCatching {

@@ -3,7 +3,9 @@ package com.siyonaga.practice.githubviewer.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +16,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -66,14 +69,23 @@ fun DetailScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Warning,
-                        contentDescription = stringResource(R.string.connection_error),
-                        modifier = Modifier.size(40.dp),
+                        contentDescription = stringResource(R.string.connection_error_text),
+                        modifier = Modifier.size(80.dp),
                         tint = Color.Red,
                     )
+
+                    Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = stringResource(R.string.connection_error),
+                        text = stringResource(R.string.connection_error_text),
                         modifier = Modifier.padding(horizontal = 16.dp),
                     )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TextButton(
+                        onClick = { viewModel.retry() },
+                    ) {
+                        Text(text = stringResource(R.string.retry_text))
+                    }
                 }
             }
         }
