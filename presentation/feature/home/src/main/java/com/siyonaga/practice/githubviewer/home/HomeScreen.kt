@@ -86,10 +86,12 @@ fun HomeScreen(
                                 onClickListItem = onClickListItem,
                             )
                             if (appendLoadState is LoadState.Error) {
+                                val message = stringResource(R.string.data_fetch_limit_text)
+
                                 LaunchedEffect(Unit) {
                                     scope.launch {
                                         snackbarHostState.showSnackbar(
-                                            message = "データ読み込みが上限に達しました",
+                                            message = message,
                                             withDismissAction = true,
                                             duration = SnackbarDuration.Long,
                                         )
