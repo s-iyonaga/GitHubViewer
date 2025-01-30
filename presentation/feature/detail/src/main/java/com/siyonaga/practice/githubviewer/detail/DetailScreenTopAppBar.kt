@@ -12,7 +12,7 @@ import androidx.compose.ui.res.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreenTopAppBar(
+internal fun DetailScreenTopAppBar(
     repoName: String,
     onNavigateToHome: () -> Unit,
 ) {
