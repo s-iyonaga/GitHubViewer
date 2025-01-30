@@ -16,15 +16,14 @@ internal class GithubRepositoriesPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
         val nowPage = params.key ?: 1
-        val githubRepositories = githubRepositoryApiService.getAllGithubRepositories(
-            word = word,
-            order = order,
-            perPage = PER_PAGE,
-            nowPage = nowPage,
-        ).items
 
         return runCatching {
-            githubRepositories.map {
+            githubRepositoryApiService.getAllGithubRepositories(
+                word = word,
+                order = order,
+                perPage = PER_PAGE,
+                nowPage = nowPage,
+            ).items.map {
                 GithubRepository(
                     name = it.name,
                     repositoryPath = it.fullName,

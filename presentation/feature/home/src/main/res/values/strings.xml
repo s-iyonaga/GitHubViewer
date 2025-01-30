@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">GitHubViewer</string>
-    <string name="change_to_desc">change to desc</string>
-    <string name="change_to_asc">change to asc</string>
+    <string name="change_to_desc">Change to desc</string>
+    <string name="change_to_asc">Change to asc</string>
+    <string name="connection_error_text">通信が失敗しました</string>
+    <string name="retry_text">リトライ</string>
+    <string name="search_placeholder">Search GitHub Repositories!</string>
+    <string name="search_label">search</string>
 </resources>

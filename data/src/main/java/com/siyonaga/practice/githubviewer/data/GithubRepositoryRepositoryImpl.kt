@@ -39,6 +39,6 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
             repoName = repoName,
         )
 
-        return GithubRepositoryDetail(readmeText = githubRepositoryDetail.readmeText)
+        return GithubRepositoryDetail(readmeText = githubRepositoryDetail.readmeText())
     }
 }
