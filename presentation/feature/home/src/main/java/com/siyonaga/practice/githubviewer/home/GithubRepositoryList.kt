@@ -1,6 +1,5 @@
 package com.siyonaga.practice.githubviewer.home
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,13 +13,10 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 @Composable
 internal fun GithubRepositoryList(
     lazyPagingItems: LazyPagingItems<GithubRepository>,
-    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
+    onClickListItem: (GithubRepository) -> Unit,
 ) {
-    LazyColumn(
-        modifier = modifier,
-        contentPadding = contentPadding,
-    ) {
+    LazyColumn(modifier = modifier) {
         items(
             count = lazyPagingItems.itemCount,
             key = lazyPagingItems.itemKey(),
@@ -31,6 +27,7 @@ internal fun GithubRepositoryList(
                 GithubRepositoryListItem(
                     githubRepository = githubRepository,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    onClickListItem = onClickListItem,
                 )
             }
         }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -29,13 +29,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.siyonaga.practice.githubviewer.model.GithubRepository
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onClickListItem: (GithubRepository) -> Unit,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val lazyPagingItems = viewModel.pagingData.collectAsLazyPagingItems()
     val refreshLoadState = lazyPagingItems.loadState.refresh
     val appendLoadState = lazyPagingItems.loadState.append
@@ -48,9 +53,15 @@ fun HomeScreen(viewModel: HomeViewModel) {
             Scaffold(
                 topBar = {
                     HomeScreenTopAppBar(
+                        word = state.word,
                         order = state.order,
+                        enable = refreshLoadState !is LoadState.Error,
+                        modifier = Modifier.fillMaxWidth(),
+                        onSearchClicked = { word ->
+                            viewModel.searchGithubRepositories(word)
+                        },
                         onSortButtonClicked = {
-                            if (refreshLoadState is LoadState.NotLoading) viewModel.changeOrder()
+                            viewModel.changeOrder()
                         },
                     )
                 },
@@ -68,18 +79,21 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         }
                     }
                     is LoadState.NotLoading -> {
-                        GithubRepositoryList(
-                            lazyPagingItems = lazyPagingItems,
-                            contentPadding = contentPadding,
-                        )
-                        if (appendLoadState is LoadState.Error) {
-                            LaunchedEffect(Unit) {
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        message = "データ読み込みが上限に達しました",
-                                        withDismissAction = true,
-                                        duration = SnackbarDuration.Long,
-                                    )
+                        Column {
+                            Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
+                            GithubRepositoryList(
+                                lazyPagingItems = lazyPagingItems,
+                                onClickListItem = onClickListItem,
+                            )
+                            if (appendLoadState is LoadState.Error) {
+                                LaunchedEffect(Unit) {
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar(
+                                            message = "データ読み込みが上限に達しました",
+                                            withDismissAction = true,
+                                            duration = SnackbarDuration.Long,
+                                        )
+                                    }
                                 }
                             }
                         }

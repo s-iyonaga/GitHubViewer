@@ -30,13 +30,26 @@ class HomeViewModel @Inject constructor(
         it as? HomeScreenUiState.Success
     }.flatMapLatest {
         githubRepositoryRepository.getAllGithubRepositories(
-            word = "android",
+            word = it.word,
             order = it.order,
         )
     }.cachedIn(viewModelScope)
 
     init {
         _uiState.value = HomeScreenUiState.Success()
+    }
+
+    fun searchGithubRepositories(word: String) {
+        _uiState.update {
+            when (it) {
+                is HomeScreenUiState.Initial -> it
+                is HomeScreenUiState.Success -> {
+                    it.copy(
+                        word = word,
+                    )
+                }
+            }
+        }
     }
 
     fun changeOrder() {
