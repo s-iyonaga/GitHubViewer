@@ -23,7 +23,7 @@ import com.siyonaga.practice.githubviewer.model.Order
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenTopAppBar(
+internal fun HomeScreenTopAppBar(
     word: String,
     order: Order,
     enable: Boolean,
