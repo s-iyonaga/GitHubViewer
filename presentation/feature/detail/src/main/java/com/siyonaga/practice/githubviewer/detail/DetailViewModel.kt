@@ -37,7 +37,7 @@ class DetailViewModel @AssistedInject constructor(
         viewModelScope.launch {
             _uiState.value = runCatching {
                 val githubRepositoryDetail = githubRepositoryRepository
-                    .getCurrentGithubRepository(
+                    .getGithubRepositoryDetail(
                         ownerName = ownerName,
                         repoName = repoName,
                     )

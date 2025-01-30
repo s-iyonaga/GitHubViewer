@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 internal interface GithubRepositoryApiService {
     @GET("/search/repositories?sort=stars")
-    suspend fun getAllGithubRepositories(
+    suspend fun getGithubRepositories(
         @Query("q") word: String,
         @Query("order") order: String,
         @Query("per_page") perPage: Int,
@@ -14,7 +14,7 @@ internal interface GithubRepositoryApiService {
     ): GithubRepositories
 
     @GET("/repos/{owner}/{repo}/readme")
-    suspend fun getCurrentGithubRepository(
+    suspend fun getGithubRepositoryDetail(
         @Path("owner") ownerName: String,
         @Path("repo") repoName: String,
     ): GithubRepositoryDetail

@@ -16,7 +16,7 @@ internal class GithubRepositoriesPagingSource(
         val nowPage = params.key ?: 1
 
         return runCatching {
-            githubRepositoryApiService.getAllGithubRepositories(
+            githubRepositoryApiService.getGithubRepositories(
                 word = word,
                 order = order,
                 perPage = perPage,

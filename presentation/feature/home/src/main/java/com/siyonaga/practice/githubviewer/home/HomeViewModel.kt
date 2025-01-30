@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
     val pagingData: Flow<PagingData<GithubRepository>> = uiState.mapNotNull {
         it as? HomeScreenUiState.Success
     }.flatMapLatest {
-        githubRepositoryRepository.getAllGithubRepositories(
+        githubRepositoryRepository.getGithubRepositories(
             word = it.word,
             order = it.order,
         )
