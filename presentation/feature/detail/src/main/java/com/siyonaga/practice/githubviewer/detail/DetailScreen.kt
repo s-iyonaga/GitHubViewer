@@ -74,17 +74,32 @@ fun DetailScreen(
                         tint = Color.Red,
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.connection_error_text),
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
+                    if (state.message.contains("404")) {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = stringResource(R.string.no_readme_text),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TextButton(
-                        onClick = { viewModel.retry() },
-                    ) {
-                        Text(text = stringResource(R.string.retry_text))
+                        Spacer(modifier = Modifier.height(16.dp))
+                        TextButton(
+                            onClick = onNavigateToHome,
+                        ) {
+                            Text(text = stringResource(R.string.back_to_home_screen_text))
+                        }
+                    } else {
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = stringResource(R.string.connection_error_text),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+                        TextButton(
+                            onClick = { viewModel.retry() },
+                        ) {
+                            Text(text = stringResource(R.string.retry_text))
+                        }
                     }
                 }
             }

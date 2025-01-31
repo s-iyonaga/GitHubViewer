@@ -52,7 +52,7 @@ class DetailViewModel @AssistedInject constructor(
                     it
                 },
                 onFailure = {
-                    DetailScreenUiState.Error
+                    DetailScreenUiState.Error(message = it.message ?: "")
                 },
             )
         }
