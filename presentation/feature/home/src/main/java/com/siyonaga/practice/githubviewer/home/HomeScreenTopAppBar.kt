@@ -72,8 +72,8 @@ internal fun HomeScreenTopAppBar(
                     },
                 )
             },
-            expanded = expanded,
-            onExpandedChange = { expanded = it },
+            expanded = false,
+            onExpandedChange = {},
         ) {
             // No Content
         }
