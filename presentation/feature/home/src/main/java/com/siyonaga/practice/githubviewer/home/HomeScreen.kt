@@ -95,7 +95,7 @@ fun HomeScreen(
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
                                     Icon(
-                                        imageVector = Icons.Filled.Info,
+                                        imageVector = Icons.Default.Info,
                                         contentDescription = stringResource(R.string.no_repository_text),
                                         modifier = Modifier.size(80.dp),
                                         tint = Color.Blue,
