@@ -52,7 +52,11 @@ class DetailViewModel @AssistedInject constructor(
                     it
                 },
                 onFailure = {
-                    DetailScreenUiState.Error(message = it.message ?: "")
+                    if (it.toString().contains("404")) {
+                        DetailScreenUiState.Error(isNotFoundException = true)
+                    } else {
+                        DetailScreenUiState.Error(isNotFoundException = false)
+                    }
                 },
             )
         }

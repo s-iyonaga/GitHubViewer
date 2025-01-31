@@ -68,7 +68,7 @@ fun DetailScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    if (state.message.contains("404")) {
+                    if (state.isNotFoundException) {
                         Icon(
                             imageVector = Icons.Filled.Info,
                             contentDescription = stringResource(R.string.no_readme_text),
