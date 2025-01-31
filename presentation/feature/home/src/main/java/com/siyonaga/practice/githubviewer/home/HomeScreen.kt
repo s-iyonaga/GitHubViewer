@@ -129,7 +129,7 @@ fun HomeScreen(
                         }
                     }
                     is LoadState.Error -> {
-                        if (refreshLoadState.error.message.toString().contains("422")) {
+                        if (refreshLoadState.error.toString().contains("422")) {
                             Column(
                                 modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.Center,
