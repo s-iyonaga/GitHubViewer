@@ -70,19 +70,20 @@ fun HomeScreen(
                     SnackbarHost(hostState = snackbarHostState)
                 },
             ) { contentPadding ->
-                when (refreshLoadState) {
-                    is LoadState.Loading -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            CircularProgressIndicator()
+                Box(
+                    modifier = Modifier.padding(contentPadding),
+                ) {
+                    when (refreshLoadState) {
+                        is LoadState.Loading -> {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                CircularProgressIndicator()
+                            }
                         }
-                    }
-                    is LoadState.NotLoading -> {
-                        Column {
+                        is LoadState.NotLoading -> {
                             if (lazyPagingItems.itemCount > 0) {
-                                Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
                                 GithubRepositoryList(
                                     lazyPagingItems = lazyPagingItems,
                                     onClickListItem = onClickListItem,
@@ -127,31 +128,31 @@ fun HomeScreen(
                                 }
                             }
                         }
-                    }
-                    is LoadState.Error -> {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Warning,
-                                contentDescription = stringResource(R.string.connection_error_text),
-                                modifier = Modifier.size(80.dp),
-                                tint = Color.Red,
-                            )
-
-                            Spacer(modifier = Modifier.height(16.dp))
-                            Text(
-                                text = stringResource(R.string.connection_error_text),
-                                modifier = Modifier.padding(horizontal = 16.dp),
-                            )
-
-                            Spacer(modifier = Modifier.height(16.dp))
-                            TextButton(
-                                onClick = { lazyPagingItems.refresh() },
+                        is LoadState.Error -> {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
-                                Text(text = stringResource(R.string.retry_text))
+                                Icon(
+                                    imageVector = Icons.Filled.Warning,
+                                    contentDescription = stringResource(R.string.connection_error_text),
+                                    modifier = Modifier.size(80.dp),
+                                    tint = Color.Red,
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = stringResource(R.string.connection_error_text),
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                )
+
+                                Spacer(modifier = Modifier.height(16.dp))
+                                TextButton(
+                                    onClick = { lazyPagingItems.refresh() },
+                                ) {
+                                    Text(text = stringResource(R.string.retry_text))
+                                }
                             }
                         }
                     }
