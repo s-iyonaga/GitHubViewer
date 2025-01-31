@@ -8,8 +8,6 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertNotSame
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
@@ -75,12 +73,6 @@ class GithubRepositoryRepositoryImplUnitTest {
                 readmeText = readmeText,
             )
 
-            assertNotNull(actualGithubRepositoryDetail)
-            assertNotNull(expectedGithubRepositoryDetail)
-            assertNotSame(
-                expectedGithubRepositoryDetail,
-                actualGithubRepositoryDetail,
-            )
             assertEquals(
                 expectedGithubRepositoryDetail,
                 actualGithubRepositoryDetail,
