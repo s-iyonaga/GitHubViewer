@@ -13,7 +13,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
-class GithubRepositoryRepositoryImplUnitTest {
+class GithubRepositoryRepositoryImplTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var retrofitJson: Json
     private lateinit var mockGithubRepositoryDetailBody: String
