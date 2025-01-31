@@ -41,7 +41,7 @@ internal fun GitHubViewerApp(
                     it.create(ownerName = detail.ownerName, repoName = detail.repoName)
                 },
                 onNavigateToHome = {
-                    navController.navigate(HomeRoute)
+                    navController.navigateUp()
                 },
             )
         }
