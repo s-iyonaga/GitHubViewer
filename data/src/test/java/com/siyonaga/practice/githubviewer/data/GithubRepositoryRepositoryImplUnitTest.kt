@@ -49,6 +49,11 @@ class GithubRepositoryRepositoryImplUnitTest {
         )
     }
 
+    @After
+    fun tearDown() {
+        mockWebServer.shutdown()
+    }
+
     @Test
     fun `API 呼び出しで GithubRepositoryDetail を取得できた場合に、期待した GithubRepositoryDetail を返す`() {
         runTest {
@@ -81,10 +86,5 @@ class GithubRepositoryRepositoryImplUnitTest {
                 actualGithubRepositoryDetail,
             )
         }
-    }
-
-    @After
-    fun tearDown() {
-        mockWebServer.shutdown()
     }
 }
