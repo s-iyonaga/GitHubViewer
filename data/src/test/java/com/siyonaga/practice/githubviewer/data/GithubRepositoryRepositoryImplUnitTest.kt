@@ -53,7 +53,7 @@ class GithubRepositoryRepositoryImplUnitTest {
     }
 
     @Test
-    fun `API 呼び出しで GithubRepositoryDetail を取得できた場合に、期待した GithubRepositoryDetail を返す`() {
+    fun `getGithubRepositoryDetail  が成功した場合には GithubRepositoryDetail を返す`() {
         runTest {
             mockWebServer.enqueue(
                 MockResponse()
