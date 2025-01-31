@@ -14,25 +14,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 class GithubRepositoryRepositoryImplTest {
-    private lateinit var mockWebServer: MockWebServer
-    private lateinit var retrofitJson: Json
-    private lateinit var mockGithubRepositoryDetailBody: String
+    private val mockWebServer: MockWebServer = MockWebServer()
+    private val retrofitJson: Json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
+    private val mockGithubRepositoryDetailBody = """
+        {
+            "content": "44GC44GE44GG44GI44GK"
+        }
+    """.trimIndent()
     private lateinit var githubRepositoryRepositoryImpl: GithubRepositoryRepositoryImpl
     private lateinit var githubRepositoryApiService: GithubRepositoryApiService
 
     @Before
     fun setUp() {
-        mockWebServer = MockWebServer()
-        retrofitJson = Json {
-            ignoreUnknownKeys = true
-            explicitNulls = false
-        }
-        mockGithubRepositoryDetailBody = """
-            {
-                "content": "44GC44GE44GG44GI44GK"
-            }
-        """.trimIndent()
-
         mockWebServer.start()
 
         githubRepositoryApiService = Retrofit
