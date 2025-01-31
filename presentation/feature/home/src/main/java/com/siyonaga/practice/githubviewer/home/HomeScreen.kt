@@ -80,11 +80,38 @@ fun HomeScreen(
                     }
                     is LoadState.NotLoading -> {
                         Column {
-                            Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
-                            GithubRepositoryList(
-                                lazyPagingItems = lazyPagingItems,
-                                onClickListItem = onClickListItem,
-                            )
+                            if (lazyPagingItems.itemCount > 0) {
+                                Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
+                                GithubRepositoryList(
+                                    lazyPagingItems = lazyPagingItems,
+                                    onClickListItem = onClickListItem,
+                                )
+                            } else {
+                                Column(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Warning,
+                                        contentDescription = stringResource(R.string.connection_error_text),
+                                        modifier = Modifier.size(80.dp),
+                                        tint = Color.Red,
+                                    )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = stringResource(R.string.no_repository_text),
+                                        modifier = Modifier.padding(horizontal = 16.dp),
+                                    )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = stringResource(R.string.suggest_search_word_text),
+                                        modifier = Modifier.padding(horizontal = 16.dp),
+                                    )
+                                }
+                            }
                             if (appendLoadState is LoadState.Error) {
                                 val message = stringResource(R.string.data_fetch_limit_text)
 
