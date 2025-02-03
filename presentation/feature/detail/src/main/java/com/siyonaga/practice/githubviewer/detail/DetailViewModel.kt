@@ -2,6 +2,7 @@ package com.siyonaga.practice.githubviewer.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.siyonaga.practice.githubviewer.model.ReadmeNotFoundException
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -52,7 +53,7 @@ class DetailViewModel @AssistedInject constructor(
                     it
                 },
                 onFailure = {
-                    if (it.toString().contains("404")) {
+                    if (it is ReadmeNotFoundException) {
                         DetailScreenUiState.Error(isNotFoundException = true)
                     } else {
                         DetailScreenUiState.Error(isNotFoundException = false)

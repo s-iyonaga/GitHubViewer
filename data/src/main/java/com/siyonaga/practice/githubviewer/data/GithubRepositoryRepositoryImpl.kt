@@ -6,8 +6,10 @@ import androidx.paging.PagingData
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.GithubRepositoryDetail
 import com.siyonaga.practice.githubviewer.model.Order
+import com.siyonaga.practice.githubviewer.model.ReadmeNotFoundException
 import com.siyonaga.practice.githubviewer.repository.GithubRepositoryRepository
 import kotlinx.coroutines.flow.Flow
+import retrofit2.HttpException
 import javax.inject.Inject
 
 internal class GithubRepositoryRepositoryImpl @Inject constructor(
@@ -35,9 +37,22 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
         ownerName: String,
         repoName: String,
     ): GithubRepositoryDetail {
-        val githubRepositoryDetail = githubRepositoryApiService.getGithubRepositoryDetail(
-            ownerName = ownerName,
-            repoName = repoName,
+        val githubRepositoryDetail = runCatching {
+            githubRepositoryApiService.getGithubRepositoryDetail(
+                ownerName = ownerName,
+                repoName = repoName,
+            )
+        }.fold(
+            onSuccess = {
+                it
+            },
+            onFailure = {
+                if ((it as HttpException).code() == 404) {
+                    throw ReadmeNotFoundException()
+                } else {
+                    throw it
+                }
+            },
         )
 
         return GithubRepositoryDetail(readmeText = githubRepositoryDetail.readmeText())
