@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntityException
+import com.siyonaga.practice.githubviewer.model.ApiUnprocessableException
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import kotlinx.coroutines.launch
 
@@ -130,7 +130,7 @@ fun HomeScreen(
                             }
                         }
                         is LoadState.Error -> {
-                            if (refreshLoadState.error is ApiUnprocessableEntityException) {
+                            if (refreshLoadState.error is ApiUnprocessableException) {
                                 Column(
                                     modifier = Modifier.fillMaxSize(),
                                     verticalArrangement = Arrangement.Center,
