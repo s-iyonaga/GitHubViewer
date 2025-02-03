@@ -2,7 +2,7 @@ package com.siyonaga.practice.githubviewer.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntity
+import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntityException
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.Owner
 import retrofit2.HttpException
@@ -41,7 +41,7 @@ internal class GithubRepositoriesPagingSource(
             },
             onFailure = {
                 if ((it as? HttpException)?.code() == 422) {
-                    LoadResult.Error(ApiUnprocessableEntity())
+                    LoadResult.Error(ApiUnprocessableEntityException())
                 } else {
                     LoadResult.Error(it)
                 }

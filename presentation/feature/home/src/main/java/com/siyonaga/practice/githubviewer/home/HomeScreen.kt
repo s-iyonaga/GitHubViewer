@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntity
+import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntityException
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import kotlinx.coroutines.launch
 
@@ -129,51 +129,51 @@ fun HomeScreen(
                                 }
                             }
                         }
-                    }
-                    is LoadState.Error -> {
-                        if (refreshLoadState.error is ApiUnprocessableEntity) {
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Info,
-                                    contentDescription = stringResource(R.string.suggest_input_search_word_text),
-                                    modifier = Modifier.size(80.dp),
-                                    tint = Color.Blue,
-                                )
-
-                                Spacer(modifier = Modifier.height(16.dp))
-                                Text(
-                                    text = stringResource(R.string.suggest_input_search_word_text),
-                                    modifier = Modifier.padding(horizontal = 16.dp),
-                                )
-                            }
-                        } else {
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Warning,
-                                    contentDescription = stringResource(R.string.connection_error_text),
-                                    modifier = Modifier.size(80.dp),
-                                    tint = Color.Red,
-                                )
-
-                                Spacer(modifier = Modifier.height(16.dp))
-                                Text(
-                                    text = stringResource(R.string.connection_error_text),
-                                    modifier = Modifier.padding(horizontal = 16.dp),
-                                )
-
-                                Spacer(modifier = Modifier.height(16.dp))
-                                TextButton(
-                                    onClick = { lazyPagingItems.refresh() },
+                        is LoadState.Error -> {
+                            if (refreshLoadState.error is ApiUnprocessableEntityException) {
+                                Column(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
-                                    Text(text = stringResource(R.string.retry_text))
+                                    Icon(
+                                        imageVector = Icons.Filled.Info,
+                                        contentDescription = stringResource(R.string.suggest_input_search_word_text),
+                                        modifier = Modifier.size(80.dp),
+                                        tint = Color.Blue,
+                                    )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = stringResource(R.string.suggest_input_search_word_text),
+                                        modifier = Modifier.padding(horizontal = 16.dp),
+                                    )
+                                }
+                            } else {
+                                Column(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Warning,
+                                        contentDescription = stringResource(R.string.connection_error_text),
+                                        modifier = Modifier.size(80.dp),
+                                        tint = Color.Red,
+                                    )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    Text(
+                                        text = stringResource(R.string.connection_error_text),
+                                        modifier = Modifier.padding(horizontal = 16.dp),
+                                    )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                    TextButton(
+                                        onClick = { lazyPagingItems.refresh() },
+                                    ) {
+                                        Text(text = stringResource(R.string.retry_text))
+                                    }
                                 }
                             }
                         }
