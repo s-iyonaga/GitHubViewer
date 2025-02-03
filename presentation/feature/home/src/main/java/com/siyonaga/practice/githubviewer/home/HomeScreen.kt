@@ -71,19 +71,20 @@ fun HomeScreen(
                     SnackbarHost(hostState = snackbarHostState)
                 },
             ) { contentPadding ->
-                when (refreshLoadState) {
-                    is LoadState.Loading -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            CircularProgressIndicator()
+                Box(
+                    modifier = Modifier.padding(contentPadding),
+                ) {
+                    when (refreshLoadState) {
+                        is LoadState.Loading -> {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                CircularProgressIndicator()
+                            }
                         }
-                    }
-                    is LoadState.NotLoading -> {
-                        Column {
+                        is LoadState.NotLoading -> {
                             if (lazyPagingItems.itemCount > 0) {
-                                Spacer(modifier = Modifier.height(contentPadding.calculateTopPadding()))
                                 GithubRepositoryList(
                                     lazyPagingItems = lazyPagingItems,
                                     onClickListItem = onClickListItem,
@@ -95,7 +96,7 @@ fun HomeScreen(
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
                                     Icon(
-                                        imageVector = Icons.Filled.Info,
+                                        imageVector = Icons.Default.Info,
                                         contentDescription = stringResource(R.string.no_repository_text),
                                         modifier = Modifier.size(80.dp),
                                         tint = Color.Blue,
