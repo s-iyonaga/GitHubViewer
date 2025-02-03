@@ -1,6 +1,9 @@
 package com.siyonaga.practice.githubviewer.home
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.siyonaga.practice.githubviewer.model.Order
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,10 +38,12 @@ internal fun HomeScreenTopAppBar(
     var input by rememberSaveable { mutableStateOf(word) }
     var expanded by rememberSaveable { mutableStateOf(false) }
 
-    Box(
+    Column(
         modifier = modifier,
-        contentAlignment = Alignment.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        // 初期フォーカスを SearchBar ではなく、SearchBar より左上の仮想コンポーザブルに設定する
+        Box(Modifier.size(1.dp).focusable())
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -72,8 +78,8 @@ internal fun HomeScreenTopAppBar(
                     },
                 )
             },
-            expanded = false,
-            onExpandedChange = {},
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
         ) {
             // No Content
         }
