@@ -47,7 +47,7 @@ internal class GithubRepositoryRepositoryImpl @Inject constructor(
                 it
             },
             onFailure = {
-                if ((it as HttpException).code() == 404) {
+                if ((it as? HttpException)?.code() == 404) {
                     throw ReadmeNotFoundException()
                 } else {
                     throw it
