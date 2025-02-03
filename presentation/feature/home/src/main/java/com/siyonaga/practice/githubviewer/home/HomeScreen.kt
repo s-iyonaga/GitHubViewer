@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.siyonaga.practice.githubviewer.model.ApiUnprocessableEntity
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import kotlinx.coroutines.launch
 
@@ -129,7 +130,7 @@ fun HomeScreen(
                         }
                     }
                     is LoadState.Error -> {
-                        if (refreshLoadState.error.toString().contains("422")) {
+                        if (refreshLoadState.error is ApiUnprocessableEntity) {
                             Column(
                                 modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.Center,
