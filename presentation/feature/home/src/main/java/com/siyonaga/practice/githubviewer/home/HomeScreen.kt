@@ -54,7 +54,7 @@ fun HomeScreen(
         is HomeScreenUiState.Success -> {
             Scaffold(
                 topBar = {
-                    HomeScreenTopAppBar(
+                    HomeScreenSearchBar(
                         word = state.word,
                         order = state.order,
                         enable = refreshLoadState !is LoadState.Error,
