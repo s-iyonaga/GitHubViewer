@@ -1,9 +1,12 @@
 package com.siyonaga.practice.githubviewer.home
 
 import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
@@ -38,12 +40,12 @@ internal fun HomeScreenTopAppBar(
     var input by rememberSaveable { mutableStateOf(word) }
     var expanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(
+    Row(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalArrangement = Arrangement.Center,
     ) {
         // 初期フォーカスを SearchBar ではなく、SearchBar より左上の仮想コンポーザブルに設定する
-        Box(Modifier.size(1.dp).focusable())
+        Box(modifier = Modifier.size(1.dp).focusable())
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -83,6 +85,9 @@ internal fun HomeScreenTopAppBar(
         ) {
             // No Content
         }
+
+        // レイアウト調整用
+        Spacer(modifier = Modifier.width(1.dp))
     }
 }
 
