@@ -61,6 +61,9 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onSearchClicked = { word ->
                             viewModel.searchGithubRepositories(word)
+                            if (refreshLoadState is LoadState.Error) {
+                                lazyPagingItems.refresh()
+                            }
                         },
                         onSortButtonClicked = {
                             viewModel.changeOrder()
