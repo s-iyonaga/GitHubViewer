@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -67,24 +68,46 @@ fun DetailScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Warning,
-                        contentDescription = stringResource(R.string.connection_error_text),
-                        modifier = Modifier.size(80.dp),
-                        tint = Color.Red,
-                    )
+                    if (state.isNotFoundException) {
+                        Icon(
+                            imageVector = Icons.Filled.Info,
+                            contentDescription = stringResource(R.string.no_readme_text),
+                            modifier = Modifier.size(80.dp),
+                            tint = Color.Blue,
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.connection_error_text),
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = stringResource(R.string.no_readme_text),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-                    TextButton(
-                        onClick = { viewModel.retry() },
-                    ) {
-                        Text(text = stringResource(R.string.retry_text))
+                        Spacer(modifier = Modifier.height(16.dp))
+                        TextButton(
+                            onClick = onNavigateToHome,
+                        ) {
+                            Text(text = stringResource(R.string.back_to_home_screen_text))
+                        }
+                    } else {
+                        Icon(
+                            imageVector = Icons.Filled.Warning,
+                            contentDescription = stringResource(R.string.connection_error_text),
+                            modifier = Modifier.size(80.dp),
+                            tint = Color.Red,
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(
+                            text = stringResource(R.string.connection_error_text),
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+                        TextButton(
+                            onClick = { viewModel.retry() },
+                        ) {
+                            Text(text = stringResource(R.string.retry_text))
+                        }
                     }
                 }
             }

@@ -14,5 +14,7 @@ sealed interface DetailScreenUiState {
     ) : DetailScreenUiState
 
     @Immutable
-    data object Error : DetailScreenUiState
+    data class Error(
+        val isNotFoundException: Boolean,
+    ) : DetailScreenUiState
 }
