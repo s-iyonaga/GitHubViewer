@@ -1,62 +1,49 @@
 package com.siyonaga.practice.githubviewer
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
+import com.siyonaga.practice.githubviewer.detail.DetailScreen
+import com.siyonaga.practice.githubviewer.detail.DetailViewModel
 import com.siyonaga.practice.githubviewer.home.HomeScreen
 
 @Composable
-fun GitHubViewerApp(
+internal fun GitHubViewerApp(
     navController: NavHostController = rememberNavController(),
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: "home"
-    val firstPartOfCurrentRoute = currentRoute.split("/").first()
+    NavHost(
+        navController = navController,
+        startDestination = HomeRoute,
+    ) {
+        composable<HomeRoute> {
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                onClickListItem = { githubRepository ->
+                    navController.navigate(
+                        DetailRoute(
+                            ownerName = githubRepository.owner.name,
+                            repoName = githubRepository.name,
+                        ),
+                    )
+                },
+            )
+        }
+        composable<DetailRoute> { backStackEntry ->
+            val detail: DetailRoute = backStackEntry.toRoute()
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            if (firstPartOfCurrentRoute == "home") {
-                // todo: ホーム画面のトップアップバー
-            } else if (firstPartOfCurrentRoute == "detail") {
-                // todo: 詳細画面のトップアップバー
-            }
-        },
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = "home",
-            modifier = Modifier.padding(innerPadding),
-        ) {
-            composable(route = "home") {
-                // todo: ホーム画面のコンテンツ
-                HomeScreen(viewModel = hiltViewModel())
-            }
-            composable(
-                route = "detail/{repoName}",
-                arguments = listOf(
-                    navArgument(name = "repoName") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                ),
-            ) { entry ->
-                val repoName = entry.arguments?.getString("repoName")
-
-                // todo 詳細画面
-            }
+            DetailScreen(
+                repoName = detail.repoName,
+                viewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory> {
+                    it.create(ownerName = detail.ownerName, repoName = detail.repoName)
+                },
+                onNavigateToHome = {
+                    navController.navigateUp()
+                },
+            )
         }
     }
 }

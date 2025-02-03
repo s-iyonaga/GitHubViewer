@@ -1,5 +1,6 @@
 package com.siyonaga.practice.githubviewer.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,9 +24,12 @@ import com.siyonaga.practice.githubviewer.model.GithubRepository
 internal fun GithubRepositoryListItem(
     githubRepository: GithubRepository,
     modifier: Modifier = Modifier,
+    onClickListItem: (GithubRepository) -> Unit,
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onClickListItem(githubRepository)
+        },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(

@@ -7,10 +7,11 @@ import com.siyonaga.practice.githubviewer.model.Order
 @Stable
 sealed interface HomeScreenUiState {
     @Immutable
-    data object Loading : HomeScreenUiState
+    data object Initial : HomeScreenUiState
 
     @Immutable
     data class Success(
+        val word: String = "android",
         val order: Order = Order.DESC,
     ) : HomeScreenUiState
 }

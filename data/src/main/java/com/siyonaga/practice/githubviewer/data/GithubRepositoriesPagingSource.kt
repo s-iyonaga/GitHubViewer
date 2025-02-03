@@ -2,29 +2,28 @@ package com.siyonaga.practice.githubviewer.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.siyonaga.practice.githubviewer.model.ApiUnprocessableException
 import com.siyonaga.practice.githubviewer.model.GithubRepository
 import com.siyonaga.practice.githubviewer.model.Owner
+import retrofit2.HttpException
 
 internal class GithubRepositoriesPagingSource(
     private val githubRepositoryApiService: GithubRepositoryApiService,
     private val word: String,
     private val order: String,
 ) : PagingSource<Int, GithubRepository>() {
-    companion object {
-        const val PER_PAGE = 30
-    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubRepository> {
+        val perPage = params.loadSize
         val nowPage = params.key ?: 1
-        val githubRepositories = githubRepositoryApiService.getAllGithubRepositories(
-            word = word,
-            order = order,
-            perPage = PER_PAGE,
-            nowPage = nowPage,
-        ).items
 
         return runCatching {
-            githubRepositories.map {
+            githubRepositoryApiService.getGithubRepositories(
+                word = word,
+                order = order,
+                perPage = perPage,
+                nowPage = nowPage,
+            ).items.map {
                 GithubRepository(
                     name = it.name,
                     repositoryPath = it.fullName,
@@ -41,7 +40,11 @@ internal class GithubRepositoriesPagingSource(
                 )
             },
             onFailure = {
-                LoadResult.Error(it)
+                if ((it as? HttpException)?.code() == 422) {
+                    LoadResult.Error(ApiUnprocessableException())
+                } else {
+                    LoadResult.Error(it)
+                }
             },
         )
     }

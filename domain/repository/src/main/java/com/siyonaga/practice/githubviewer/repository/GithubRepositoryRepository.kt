@@ -7,12 +7,12 @@ import com.siyonaga.practice.githubviewer.model.Order
 import kotlinx.coroutines.flow.Flow
 
 interface GithubRepositoryRepository {
-    suspend fun getAllGithubRepositories(
+    fun getGithubRepositories(
         word: String,
         order: Order,
     ): Flow<PagingData<GithubRepository>>
 
-    suspend fun getCurrentGithubRepository(
+    suspend fun getGithubRepositoryDetail(
         ownerName: String,
         repoName: String,
     ): GithubRepositoryDetail
